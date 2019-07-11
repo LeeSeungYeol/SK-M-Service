@@ -36687,47 +36687,29 @@ class NeoVis {
                 // );
                 var test = document.getElementById("context-menus");
 
-                /* 마우스 클릭 리스너를 초기 실행시킨다. */
-                function init() {
-                  rightMouseListener();
-                  leftMouseListener();
-                }
-
-                /* 마우스 왼클릭 감지 */
-                function leftMouseListener() {
-                  document.addEventListener("click", function(e) {
-                    toggleOnOff(0);
-                  })
-                }
-
-                /* 마우스 우클릭 감지 */
-                function rightMouseListener() {
-                  document.addEventListener("contextmenu", function(e) {
-                    event.preventDefault();
-                    toggleOnOff(1);
-                    showMenu(e.x, e.y);
-                  });
-                }
 
                 /* 마우스 메뉴 on & off */
                 function toggleOnOff(num) {
                   num === 1 ? test.classList.add("active") : test.classList.remove("active");
+                  //num에 1이면 메뉴창 화면에 출력,num이 0이면 메뉴창 화면에서 제거 
                 }
 
                 /* 마우스 클릭한 지점에서 메뉴 보여줌 */
                 function showMenu(x, y) {
-                  console.log(test);
-                  test.style.top = y + "px";
-                  test.style.left = x + "px";
+                  test.style.top = y+628 +"px";
+                  test.style.left = x+375 + "px"; //Graph출력하는 화면에서 Node위치와 일치시켜 주기 위해 숫자들 입력
 
                 }
 
                 
                 self._network = new __WEBPACK_IMPORTED_MODULE_1__vendor_vis_dist_vis_network_min_js__["Network"](container, self._data, options);
-                self._network.on("selectNode", function (params) {
+                
+                //더블클릭하면 연관상품 확장기능 실행
+                self._network.on("doubleClick", function (params) {
                     var guessing=0; //가운데 눌렀을 때는 이동 안하게 변경
                     document.getElementById("ppid").value=jsoned3;
                     params.event = "[original event]";
+                    
                     //document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
                     //alert(this.getNodeAt(params.pointer.DOM));
                     console.log('click event, getNodeAt returns: ' + JSON.stringify(params, ['nodes'], 4));
@@ -36748,8 +36730,31 @@ class NeoVis {
                     }
                     guessing=0;
 
-                    init();
+                    
                 }); 
+
+                //마우스 우클릭했을때 이벤트 처리
+                self._network.on("oncontext", function (params) {
+                  //기본 브라우져에서 마우스 우클릭시에 출력되는 창을 제거
+                  params.event.preventDefault();
+                  //우클릭했을때 선택된 노드가 없으면 메뉴창 제거, 노드가 있으면 메뉴창 출력
+                  if(this.getNodeAt(params.pointer.DOM)==undefined){
+                    toggleOnOff(0);
+      
+                  }
+                  else{
+      
+                    toggleOnOff(1);
+                    showMenu(params.pointer.DOM.x, params.pointer.DOM.y);
+                  }
+                    
+                });
+
+                //좌클릭했을때는 기존에 화면에 출력된 메뉴창을 제거 
+                self._network.on("click", function (params) {
+                  toggleOnOff(0);
+                }); 
+
 
                 //console.log(self._events);
                 console.log("completed");
