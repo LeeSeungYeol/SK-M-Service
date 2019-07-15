@@ -85,9 +85,9 @@
           width: 10em;
       }
       <script>
+        $(".jb-length").hide();
         $(".jb-footer").hide();
-
-          
+        
       </script>
     </style> <!-- 각 레이아웃 부분 스타일 정의  //-->
 
@@ -126,6 +126,7 @@
     var limit_num=250; // 연관 상품 최대 출력 개수 default=250
     var search_text="몽벨"; // 연관 상품 검색 default= "몽벨"
     var jsoned3=1151183; // 상품 ID default= 1151183
+    var center_of_graph=1151183;
     </script>
     <div id="jb-container"><!-- 전체 틀  //-->
       <div id="jb-header"> <!-- 전체적 제목 이름  //-->
@@ -236,11 +237,10 @@
       <div id="jb-footer" class="jb-footer"> 
         상품 정보: <br>
           <pre id="eventSpan"></pre>  <!-- neovis.js으로 부터 클릭에 대한 정보를 받아온다. (innerHTML) -->
-    </div>
-    <div id="jb-length" class="jb-length"> 
-        거리 정보: <br>
-          <pre id="lengthInfo"></pre>  <!-- neovis.js으로 부터 클릭에 대한 정보를 받아온다. (innerHTML) -->
-    </div>
+      </div>
+      <div id="jb-length" class="jb-length"> 
+            <pre id="lengthInfo"></pre>  <!-- neovis.js으로 부터 클릭에 대한 정보를 받아온다. (innerHTML) -->
+      </div>
       
     </div>
     
@@ -248,7 +248,7 @@
         <ul>
           <li><a href="javascript:draw()">확장</a></li>
 
-          <li><a href="javascript:show_length()">거리</a></li>
+          <li><a href="javascript:show_Length()">거리</a></li>
 
           <li><a href="javascript:show_Info()">정보</a></li>
         </ul>

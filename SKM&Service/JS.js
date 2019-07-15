@@ -34,6 +34,7 @@ var viz;
         
       viz = new NeoVis.default(config);
       hide_Info();
+      hide_Length();
 	    viz.render();
       
 	}
@@ -89,7 +90,7 @@ var viz;
       $(".jb-length").hide();
     }
     function show_Length(){
-      $(".jb-length").slideDown(300,"linear");
+      $(".jb-length").slideToggle(300,"linear");
     }
 
     function hide_Length_Smoothly(){
