@@ -36774,11 +36774,12 @@ class NeoVis {
                     
                 }); 
                 //마우스로 노드를 한번 클릭했을때 해당 노드의 정보를 출력
-                self._network.on("click", function (params) {
+                self._network.on("selectNode", function (params) {
                     document.getElementById("ppid").value=jsoned3;
                     params.event = "[original event]";
                     //document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
                     //alert(this.getNodeAt(params.pointer.DOM));
+                    
                     console.log('click event, getNodeAt returns: ' + JSON.stringify(params, ['nodes'], 4));
                     var jsoned= JSON.stringify(params['nodes'][0],null,1);
                     var jsoned2= JSON.stringify(self._data.nodes._data[jsoned]['title'],null,4);
@@ -36789,9 +36790,30 @@ class NeoVis {
                     jsoned2=jsoned2[0];
                     jsoned2=jsoned2.split(" ");
                     jsoned2=jsoned2[1];
-                    
-                    jsoned3=jsoned2;
+
+                   const driver = __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].driver("bolt://localhost:7687", __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].auth.basic("neo4j", "1234"));
+                   const session = driver.session();
+
+                   const personName = 'Alice';
+                   const resultPromise = session.run(
+                    'MATCH (p1:Product { pid:"1072885" }), (p2:Product { pid:"1009570" }), path = shortestPath((p1)-[*]-(p2)) RETURN length(path)'
+                    );
+
+                   resultPromise.then(result  > {
+                     session.close();
+
+                     const singleRecord = result.records[0];
+                     const node = singleRecord.get(0);
+
+                     console.log(node);
+
+                     // on application exit:
+                     driver.close();
+                   });
+                 
+                     jsoned3=jsoned2;
                     document.getElementById('eventSpan').innerHTML = '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
+                    document.getElementById('lengthInfo').innerHTML = '거리: '+ resultPromise +"";
                     toggleOnOff(0);
                     
                 }); 
