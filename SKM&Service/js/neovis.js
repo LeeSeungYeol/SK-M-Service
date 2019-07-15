@@ -1,79 +1,79 @@
 (function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["NeoVis"] = factory();
-	else
-		root["NeoVis"] = factory();
+  if(typeof exports === 'object' && typeof module === 'object')
+    module.exports = factory();
+  else if(typeof define === 'function' && define.amd)
+    define([], factory);
+  else if(typeof exports === 'object')
+    exports["NeoVis"] = factory();
+  else
+    root["NeoVis"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
+/******/  // The module cache
+/******/  var installedModules = {};
 /******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
+/******/  // The require function
+/******/  function __webpack_require__(moduleId) {
 /******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
+/******/    // Check if module is in cache
+/******/    if(installedModules[moduleId]) {
+/******/      return installedModules[moduleId].exports;
+/******/    }
+/******/    // Create a new module (and put it into the cache)
+/******/    var module = installedModules[moduleId] = {
+/******/      i: moduleId,
+/******/      l: false,
+/******/      exports: {}
+/******/    };
 /******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/    // Execute the module function
+/******/    modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
+/******/    // Flag the module as loaded
+/******/    module.l = true;
 /******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
+/******/    // Return the exports of the module
+/******/    return module.exports;
+/******/  }
 /******/
 /******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
+/******/  // expose the modules object (__webpack_modules__)
+/******/  __webpack_require__.m = modules;
 /******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
+/******/  // expose the module cache
+/******/  __webpack_require__.c = installedModules;
 /******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
+/******/  // identity function for calling harmony imports with the correct context
+/******/  __webpack_require__.i = function(value) { return value; };
 /******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
+/******/  // define getter function for harmony exports
+/******/  __webpack_require__.d = function(exports, name, getter) {
+/******/    if(!__webpack_require__.o(exports, name)) {
+/******/      Object.defineProperty(exports, name, {
+/******/        configurable: false,
+/******/        enumerable: true,
+/******/        get: getter
+/******/      });
+/******/    }
+/******/  };
 /******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
+/******/  // getDefaultExport function for compatibility with non-harmony modules
+/******/  __webpack_require__.n = function(module) {
+/******/    var getter = module && module.__esModule ?
+/******/      function getDefault() { return module['default']; } :
+/******/      function getModuleExports() { return module; };
+/******/    __webpack_require__.d(getter, 'a', getter);
+/******/    return getter;
+/******/  };
 /******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/  // Object.prototype.hasOwnProperty.call
+/******/  __webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/  // __webpack_public_path__
+/******/  __webpack_require__.p = "";
 /******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 27);
+/******/  // Load entry module and return exports
+/******/  return __webpack_require__(__webpack_require__.s = 27);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -84,16 +84,16 @@ var g;
 
 // This works in non-strict mode
 g = (function() {
-	return this;
+  return this;
 })();
 
 try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
+  // This works if eval is allowed (see CSP)
+  g = g || Function("return this")() || (1,eval)("this");
 } catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
+  // This works if the window reference is available
+  if(typeof window === "object")
+    g = window;
 }
 
 // g can still be undefined, but nothing to do about it...
@@ -117,16 +117,16 @@ var update = __webpack_require__(11)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!./vis-network.min.css", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!./vis-network.min.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
+  // When the styles change, update the <style> tags
+  if(!content.locals) {
+    module.hot.accept("!!../../../node_modules/css-loader/index.js!./vis-network.min.css", function() {
+      var newContent = require("!!../../../node_modules/css-loader/index.js!./vis-network.min.css");
+      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+      update(newContent);
+    });
+  }
+  // When the module is disposed, remove the <style> tags
+  module.hot.dispose(function() { update(); });
 }
 
 /***/ }),
@@ -11778,38 +11778,38 @@ var elliptic = require('elliptic');
 var BN = require('bn.js');
 
 module.exports = function createECDH(curve) {
-	return new ECDH(curve);
+  return new ECDH(curve);
 };
 
 var aliases = {
-	secp256k1: {
-		name: 'secp256k1',
-		byteLength: 32
-	},
-	secp224r1: {
-		name: 'p224',
-		byteLength: 28
-	},
-	prime256v1: {
-		name: 'p256',
-		byteLength: 32
-	},
-	prime192v1: {
-		name: 'p192',
-		byteLength: 24
-	},
-	ed25519: {
-		name: 'ed25519',
-		byteLength: 32
-	},
-	secp384r1: {
-		name: 'p384',
-		byteLength: 48
-	},
-	secp521r1: {
-		name: 'p521',
-		byteLength: 66
-	}
+  secp256k1: {
+    name: 'secp256k1',
+    byteLength: 32
+  },
+  secp224r1: {
+    name: 'p224',
+    byteLength: 28
+  },
+  prime256v1: {
+    name: 'p256',
+    byteLength: 32
+  },
+  prime192v1: {
+    name: 'p192',
+    byteLength: 24
+  },
+  ed25519: {
+    name: 'ed25519',
+    byteLength: 32
+  },
+  secp384r1: {
+    name: 'p384',
+    byteLength: 48
+  },
+  secp521r1: {
+    name: 'p521',
+    byteLength: 66
+  }
 };
 
 aliases.p224 = aliases.secp224r1;
@@ -11819,82 +11819,82 @@ aliases.p384 = aliases.secp384r1;
 aliases.p521 = aliases.secp521r1;
 
 function ECDH(curve) {
-	this.curveType = aliases[curve];
-	if (!this.curveType ) {
-		this.curveType = {
-			name: curve
-		};
-	}
-	this.curve = new elliptic.ec(this.curveType.name);
-	this.keys = void 0;
+  this.curveType = aliases[curve];
+  if (!this.curveType ) {
+    this.curveType = {
+      name: curve
+    };
+  }
+  this.curve = new elliptic.ec(this.curveType.name);
+  this.keys = void 0;
 }
 
 ECDH.prototype.generateKeys = function (enc, format) {
-	this.keys = this.curve.genKeyPair();
-	return this.getPublicKey(enc, format);
+  this.keys = this.curve.genKeyPair();
+  return this.getPublicKey(enc, format);
 };
 
 ECDH.prototype.computeSecret = function (other, inenc, enc) {
-	inenc = inenc || 'utf8';
-	if (!Buffer.isBuffer(other)) {
-		other = new Buffer(other, inenc);
-	}
-	var otherPub = this.curve.keyFromPublic(other).getPublic();
-	var out = otherPub.mul(this.keys.getPrivate()).getX();
-	return formatReturnValue(out, enc, this.curveType.byteLength);
+  inenc = inenc || 'utf8';
+  if (!Buffer.isBuffer(other)) {
+    other = new Buffer(other, inenc);
+  }
+  var otherPub = this.curve.keyFromPublic(other).getPublic();
+  var out = otherPub.mul(this.keys.getPrivate()).getX();
+  return formatReturnValue(out, enc, this.curveType.byteLength);
 };
 
 ECDH.prototype.getPublicKey = function (enc, format) {
-	var key = this.keys.getPublic(format === 'compressed', true);
-	if (format === 'hybrid') {
-		if (key[key.length - 1] % 2) {
-			key[0] = 7;
-		} else {
-			key [0] = 6;
-		}
-	}
-	return formatReturnValue(key, enc);
+  var key = this.keys.getPublic(format === 'compressed', true);
+  if (format === 'hybrid') {
+    if (key[key.length - 1] % 2) {
+      key[0] = 7;
+    } else {
+      key [0] = 6;
+    }
+  }
+  return formatReturnValue(key, enc);
 };
 
 ECDH.prototype.getPrivateKey = function (enc) {
-	return formatReturnValue(this.keys.getPrivate(), enc);
+  return formatReturnValue(this.keys.getPrivate(), enc);
 };
 
 ECDH.prototype.setPublicKey = function (pub, enc) {
-	enc = enc || 'utf8';
-	if (!Buffer.isBuffer(pub)) {
-		pub = new Buffer(pub, enc);
-	}
-	this.keys._importPublic(pub);
-	return this;
+  enc = enc || 'utf8';
+  if (!Buffer.isBuffer(pub)) {
+    pub = new Buffer(pub, enc);
+  }
+  this.keys._importPublic(pub);
+  return this;
 };
 
 ECDH.prototype.setPrivateKey = function (priv, enc) {
-	enc = enc || 'utf8';
-	if (!Buffer.isBuffer(priv)) {
-		priv = new Buffer(priv, enc);
-	}
-	var _priv = new BN(priv);
-	_priv = _priv.toString(16);
-	this.keys._importPrivate(_priv);
-	return this;
+  enc = enc || 'utf8';
+  if (!Buffer.isBuffer(priv)) {
+    priv = new Buffer(priv, enc);
+  }
+  var _priv = new BN(priv);
+  _priv = _priv.toString(16);
+  this.keys._importPrivate(_priv);
+  return this;
 };
 
 function formatReturnValue(bn, enc, len) {
-	if (!Array.isArray(bn)) {
-		bn = bn.toArray();
-	}
-	var buf = new Buffer(bn);
-	if (len && buf.length < len) {
-		var zeros = new Buffer(len - buf.length);
-		zeros.fill(0);
-		buf = Buffer.concat([zeros, buf]);
-	}
-	if (!enc) {
-		return buf;
-	} else {
-		return buf.toString(enc);
-	}
+  if (!Array.isArray(bn)) {
+    bn = bn.toArray();
+  }
+  var buf = new Buffer(bn);
+  if (len && buf.length < len) {
+    var zeros = new Buffer(len - buf.length);
+    zeros.fill(0);
+    buf = Buffer.concat([zeros, buf]);
+  }
+  if (!enc) {
+    return buf;
+  } else {
+    return buf.toString(enc);
+  }
 }
 
 }).call(this,require("buffer").Buffer)
@@ -35311,80 +35311,80 @@ exports.push([module.i, ".vis .overlay{position:absolute;top:0;left:0;width:100%
 /***/ (function(module, exports) {
 
 /*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
 */
 // css base code, injected by the css-loader
 module.exports = function(useSourceMap) {
-	var list = [];
+  var list = [];
 
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
+  // return the list of modules as css string
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = cssWithMappingToString(item, useSourceMap);
+      if(item[2]) {
+        return "@media " + item[2] + "{" + content + "}";
+      } else {
+        return content;
+      }
+    }).join("");
+  };
 
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
+  // import a list of modules into the list
+  list.i = function(modules, mediaQuery) {
+    if(typeof modules === "string")
+      modules = [[null, modules, ""]];
+    var alreadyImportedModules = {};
+    for(var i = 0; i < this.length; i++) {
+      var id = this[i][0];
+      if(typeof id === "number")
+        alreadyImportedModules[id] = true;
+    }
+    for(i = 0; i < modules.length; i++) {
+      var item = modules[i];
+      // skip already imported module
+      // this implementation is not 100% perfect for weird media query combinations
+      //  when a module is imported multiple times with different media queries.
+      //  I hope this will never occur (Hey this way we have smaller bundles)
+      if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+        if(mediaQuery && !item[2]) {
+          item[2] = mediaQuery;
+        } else if(mediaQuery) {
+          item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+        }
+        list.push(item);
+      }
+    }
+  };
+  return list;
 };
 
 function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
+  var content = item[1] || '';
+  var cssMapping = item[3];
+  if (!cssMapping) {
+    return content;
+  }
 
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
+  if (useSourceMap && typeof btoa === 'function') {
+    var sourceMapping = toComment(cssMapping);
+    var sourceURLs = cssMapping.sources.map(function (source) {
+      return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+    });
 
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
+    return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+  }
 
-	return [content].join('\n');
+  return [content].join('\n');
 }
 
 // Adapted from convert-source-map (MIT)
 function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+  // eslint-disable-next-line no-undef
+  var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+  var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
 
-	return '/*# ' + data + ' */';
+  return '/*# ' + data + ' */';
 }
 
 
@@ -35798,294 +35798,294 @@ process.umask = function() { return 0; };
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
 */
 var stylesInDom = {},
-	memoize = function(fn) {
-		var memo;
-		return function () {
-			if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-			return memo;
-		};
-	},
-	isOldIE = memoize(function() {
-		// Test for IE <= 9 as proposed by Browserhacks
-		// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
-		// Tests for existence of standard globals is to allow style-loader 
-		// to operate correctly into non-standard environments
-		// @see https://github.com/webpack-contrib/style-loader/issues/177
-		return window && document && document.all && !window.atob;
-	}),
-	getElement = (function(fn) {
-		var memo = {};
-		return function(selector) {
-			if (typeof memo[selector] === "undefined") {
-				memo[selector] = fn.call(this, selector);
-			}
-			return memo[selector]
-		};
-	})(function (styleTarget) {
-		return document.querySelector(styleTarget)
-	}),
-	singletonElement = null,
-	singletonCounter = 0,
-	styleElementsInsertedAtTop = [],
-	fixUrls = __webpack_require__(12);
+  memoize = function(fn) {
+    var memo;
+    return function () {
+      if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+      return memo;
+    };
+  },
+  isOldIE = memoize(function() {
+    // Test for IE <= 9 as proposed by Browserhacks
+    // @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+    // Tests for existence of standard globals is to allow style-loader 
+    // to operate correctly into non-standard environments
+    // @see https://github.com/webpack-contrib/style-loader/issues/177
+    return window && document && document.all && !window.atob;
+  }),
+  getElement = (function(fn) {
+    var memo = {};
+    return function(selector) {
+      if (typeof memo[selector] === "undefined") {
+        memo[selector] = fn.call(this, selector);
+      }
+      return memo[selector]
+    };
+  })(function (styleTarget) {
+    return document.querySelector(styleTarget)
+  }),
+  singletonElement = null,
+  singletonCounter = 0,
+  styleElementsInsertedAtTop = [],
+  fixUrls = __webpack_require__(12);
 
 module.exports = function(list, options) {
-	if(typeof DEBUG !== "undefined" && DEBUG) {
-		if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-	}
+  if(typeof DEBUG !== "undefined" && DEBUG) {
+    if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+  }
 
-	options = options || {};
-	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+  options = options || {};
+  options.attrs = typeof options.attrs === "object" ? options.attrs : {};
 
-	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-	// tags it will allow on a page
-	if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+  // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+  // tags it will allow on a page
+  if (typeof options.singleton === "undefined") options.singleton = isOldIE();
 
-	// By default, add <style> tags to the <head> element
-	if (typeof options.insertInto === "undefined") options.insertInto = "head";
+  // By default, add <style> tags to the <head> element
+  if (typeof options.insertInto === "undefined") options.insertInto = "head";
 
-	// By default, add <style> tags to the bottom of the target
-	if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+  // By default, add <style> tags to the bottom of the target
+  if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
 
-	var styles = listToStyles(list);
-	addStylesToDom(styles, options);
+  var styles = listToStyles(list);
+  addStylesToDom(styles, options);
 
-	return function update(newList) {
-		var mayRemove = [];
-		for(var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-			domStyle.refs--;
-			mayRemove.push(domStyle);
-		}
-		if(newList) {
-			var newStyles = listToStyles(newList);
-			addStylesToDom(newStyles, options);
-		}
-		for(var i = 0; i < mayRemove.length; i++) {
-			var domStyle = mayRemove[i];
-			if(domStyle.refs === 0) {
-				for(var j = 0; j < domStyle.parts.length; j++)
-					domStyle.parts[j]();
-				delete stylesInDom[domStyle.id];
-			}
-		}
-	};
+  return function update(newList) {
+    var mayRemove = [];
+    for(var i = 0; i < styles.length; i++) {
+      var item = styles[i];
+      var domStyle = stylesInDom[item.id];
+      domStyle.refs--;
+      mayRemove.push(domStyle);
+    }
+    if(newList) {
+      var newStyles = listToStyles(newList);
+      addStylesToDom(newStyles, options);
+    }
+    for(var i = 0; i < mayRemove.length; i++) {
+      var domStyle = mayRemove[i];
+      if(domStyle.refs === 0) {
+        for(var j = 0; j < domStyle.parts.length; j++)
+          domStyle.parts[j]();
+        delete stylesInDom[domStyle.id];
+      }
+    }
+  };
 };
 
 function addStylesToDom(styles, options) {
-	for(var i = 0; i < styles.length; i++) {
-		var item = styles[i];
-		var domStyle = stylesInDom[item.id];
-		if(domStyle) {
-			domStyle.refs++;
-			for(var j = 0; j < domStyle.parts.length; j++) {
-				domStyle.parts[j](item.parts[j]);
-			}
-			for(; j < item.parts.length; j++) {
-				domStyle.parts.push(addStyle(item.parts[j], options));
-			}
-		} else {
-			var parts = [];
-			for(var j = 0; j < item.parts.length; j++) {
-				parts.push(addStyle(item.parts[j], options));
-			}
-			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-		}
-	}
+  for(var i = 0; i < styles.length; i++) {
+    var item = styles[i];
+    var domStyle = stylesInDom[item.id];
+    if(domStyle) {
+      domStyle.refs++;
+      for(var j = 0; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j]);
+      }
+      for(; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j], options));
+      }
+    } else {
+      var parts = [];
+      for(var j = 0; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j], options));
+      }
+      stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+    }
+  }
 }
 
 function listToStyles(list) {
-	var styles = [];
-	var newStyles = {};
-	for(var i = 0; i < list.length; i++) {
-		var item = list[i];
-		var id = item[0];
-		var css = item[1];
-		var media = item[2];
-		var sourceMap = item[3];
-		var part = {css: css, media: media, sourceMap: sourceMap};
-		if(!newStyles[id])
-			styles.push(newStyles[id] = {id: id, parts: [part]});
-		else
-			newStyles[id].parts.push(part);
-	}
-	return styles;
+  var styles = [];
+  var newStyles = {};
+  for(var i = 0; i < list.length; i++) {
+    var item = list[i];
+    var id = item[0];
+    var css = item[1];
+    var media = item[2];
+    var sourceMap = item[3];
+    var part = {css: css, media: media, sourceMap: sourceMap};
+    if(!newStyles[id])
+      styles.push(newStyles[id] = {id: id, parts: [part]});
+    else
+      newStyles[id].parts.push(part);
+  }
+  return styles;
 }
 
 function insertStyleElement(options, styleElement) {
-	var styleTarget = getElement(options.insertInto)
-	if (!styleTarget) {
-		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
-	}
-	var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
-	if (options.insertAt === "top") {
-		if(!lastStyleElementInsertedAtTop) {
-			styleTarget.insertBefore(styleElement, styleTarget.firstChild);
-		} else if(lastStyleElementInsertedAtTop.nextSibling) {
-			styleTarget.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
-		} else {
-			styleTarget.appendChild(styleElement);
-		}
-		styleElementsInsertedAtTop.push(styleElement);
-	} else if (options.insertAt === "bottom") {
-		styleTarget.appendChild(styleElement);
-	} else {
-		throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
-	}
+  var styleTarget = getElement(options.insertInto)
+  if (!styleTarget) {
+    throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+  }
+  var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+  if (options.insertAt === "top") {
+    if(!lastStyleElementInsertedAtTop) {
+      styleTarget.insertBefore(styleElement, styleTarget.firstChild);
+    } else if(lastStyleElementInsertedAtTop.nextSibling) {
+      styleTarget.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+    } else {
+      styleTarget.appendChild(styleElement);
+    }
+    styleElementsInsertedAtTop.push(styleElement);
+  } else if (options.insertAt === "bottom") {
+    styleTarget.appendChild(styleElement);
+  } else {
+    throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+  }
 }
 
 function removeStyleElement(styleElement) {
-	styleElement.parentNode.removeChild(styleElement);
-	var idx = styleElementsInsertedAtTop.indexOf(styleElement);
-	if(idx >= 0) {
-		styleElementsInsertedAtTop.splice(idx, 1);
-	}
+  styleElement.parentNode.removeChild(styleElement);
+  var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+  if(idx >= 0) {
+    styleElementsInsertedAtTop.splice(idx, 1);
+  }
 }
 
 function createStyleElement(options) {
-	var styleElement = document.createElement("style");
-	options.attrs.type = "text/css";
+  var styleElement = document.createElement("style");
+  options.attrs.type = "text/css";
 
-	attachTagAttrs(styleElement, options.attrs);
-	insertStyleElement(options, styleElement);
-	return styleElement;
+  attachTagAttrs(styleElement, options.attrs);
+  insertStyleElement(options, styleElement);
+  return styleElement;
 }
 
 function createLinkElement(options) {
-	var linkElement = document.createElement("link");
-	options.attrs.type = "text/css";
-	options.attrs.rel = "stylesheet";
+  var linkElement = document.createElement("link");
+  options.attrs.type = "text/css";
+  options.attrs.rel = "stylesheet";
 
-	attachTagAttrs(linkElement, options.attrs);
-	insertStyleElement(options, linkElement);
-	return linkElement;
+  attachTagAttrs(linkElement, options.attrs);
+  insertStyleElement(options, linkElement);
+  return linkElement;
 }
 
 function attachTagAttrs(element, attrs) {
-	Object.keys(attrs).forEach(function (key) {
-		element.setAttribute(key, attrs[key]);
-	});
+  Object.keys(attrs).forEach(function (key) {
+    element.setAttribute(key, attrs[key]);
+  });
 }
 
 function addStyle(obj, options) {
-	var styleElement, update, remove;
+  var styleElement, update, remove;
 
-	if (options.singleton) {
-		var styleIndex = singletonCounter++;
-		styleElement = singletonElement || (singletonElement = createStyleElement(options));
-		update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
-		remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
-	} else if(obj.sourceMap &&
-		typeof URL === "function" &&
-		typeof URL.createObjectURL === "function" &&
-		typeof URL.revokeObjectURL === "function" &&
-		typeof Blob === "function" &&
-		typeof btoa === "function") {
-		styleElement = createLinkElement(options);
-		update = updateLink.bind(null, styleElement, options);
-		remove = function() {
-			removeStyleElement(styleElement);
-			if(styleElement.href)
-				URL.revokeObjectURL(styleElement.href);
-		};
-	} else {
-		styleElement = createStyleElement(options);
-		update = applyToTag.bind(null, styleElement);
-		remove = function() {
-			removeStyleElement(styleElement);
-		};
-	}
+  if (options.singleton) {
+    var styleIndex = singletonCounter++;
+    styleElement = singletonElement || (singletonElement = createStyleElement(options));
+    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+  } else if(obj.sourceMap &&
+    typeof URL === "function" &&
+    typeof URL.createObjectURL === "function" &&
+    typeof URL.revokeObjectURL === "function" &&
+    typeof Blob === "function" &&
+    typeof btoa === "function") {
+    styleElement = createLinkElement(options);
+    update = updateLink.bind(null, styleElement, options);
+    remove = function() {
+      removeStyleElement(styleElement);
+      if(styleElement.href)
+        URL.revokeObjectURL(styleElement.href);
+    };
+  } else {
+    styleElement = createStyleElement(options);
+    update = applyToTag.bind(null, styleElement);
+    remove = function() {
+      removeStyleElement(styleElement);
+    };
+  }
 
-	update(obj);
+  update(obj);
 
-	return function updateStyle(newObj) {
-		if(newObj) {
-			if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
-				return;
-			update(obj = newObj);
-		} else {
-			remove();
-		}
-	};
+  return function updateStyle(newObj) {
+    if(newObj) {
+      if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+        return;
+      update(obj = newObj);
+    } else {
+      remove();
+    }
+  };
 }
 
 var replaceText = (function () {
-	var textStore = [];
+  var textStore = [];
 
-	return function (index, replacement) {
-		textStore[index] = replacement;
-		return textStore.filter(Boolean).join('\n');
-	};
+  return function (index, replacement) {
+    textStore[index] = replacement;
+    return textStore.filter(Boolean).join('\n');
+  };
 })();
 
 function applyToSingletonTag(styleElement, index, remove, obj) {
-	var css = remove ? "" : obj.css;
+  var css = remove ? "" : obj.css;
 
-	if (styleElement.styleSheet) {
-		styleElement.styleSheet.cssText = replaceText(index, css);
-	} else {
-		var cssNode = document.createTextNode(css);
-		var childNodes = styleElement.childNodes;
-		if (childNodes[index]) styleElement.removeChild(childNodes[index]);
-		if (childNodes.length) {
-			styleElement.insertBefore(cssNode, childNodes[index]);
-		} else {
-			styleElement.appendChild(cssNode);
-		}
-	}
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = replaceText(index, css);
+  } else {
+    var cssNode = document.createTextNode(css);
+    var childNodes = styleElement.childNodes;
+    if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+    if (childNodes.length) {
+      styleElement.insertBefore(cssNode, childNodes[index]);
+    } else {
+      styleElement.appendChild(cssNode);
+    }
+  }
 }
 
 function applyToTag(styleElement, obj) {
-	var css = obj.css;
-	var media = obj.media;
+  var css = obj.css;
+  var media = obj.media;
 
-	if(media) {
-		styleElement.setAttribute("media", media)
-	}
+  if(media) {
+    styleElement.setAttribute("media", media)
+  }
 
-	if(styleElement.styleSheet) {
-		styleElement.styleSheet.cssText = css;
-	} else {
-		while(styleElement.firstChild) {
-			styleElement.removeChild(styleElement.firstChild);
-		}
-		styleElement.appendChild(document.createTextNode(css));
-	}
+  if(styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css;
+  } else {
+    while(styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild);
+    }
+    styleElement.appendChild(document.createTextNode(css));
+  }
 }
 
 function updateLink(linkElement, options, obj) {
-	var css = obj.css;
-	var sourceMap = obj.sourceMap;
+  var css = obj.css;
+  var sourceMap = obj.sourceMap;
 
-	/* If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
-	and there is no publicPath defined then lets turn convertToAbsoluteUrls
-	on by default.  Otherwise default to the convertToAbsoluteUrls option
-	directly
-	*/
-	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+  /* If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+  and there is no publicPath defined then lets turn convertToAbsoluteUrls
+  on by default.  Otherwise default to the convertToAbsoluteUrls option
+  directly
+  */
+  var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
 
-	if (options.convertToAbsoluteUrls || autoFixUrls){
-		css = fixUrls(css);
-	}
+  if (options.convertToAbsoluteUrls || autoFixUrls){
+    css = fixUrls(css);
+  }
 
-	if(sourceMap) {
-		// http://stackoverflow.com/a/26603875
-		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-	}
+  if(sourceMap) {
+    // http://stackoverflow.com/a/26603875
+    css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+  }
 
-	var blob = new Blob([css], { type: "text/css" });
+  var blob = new Blob([css], { type: "text/css" });
 
-	var oldSrc = linkElement.href;
+  var oldSrc = linkElement.href;
 
-	linkElement.href = URL.createObjectURL(blob);
+  linkElement.href = URL.createObjectURL(blob);
 
-	if(oldSrc)
-		URL.revokeObjectURL(oldSrc);
+  if(oldSrc)
+    URL.revokeObjectURL(oldSrc);
 }
 
 
@@ -36115,72 +36115,72 @@ module.exports = function (css) {
     throw new Error("fixUrls requires window.location");
   }
 
-	// blank or null?
-	if (!css || typeof css !== "string") {
-	  return css;
+  // blank or null?
+  if (!css || typeof css !== "string") {
+    return css;
   }
 
   var baseUrl = location.protocol + "//" + location.host;
   var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
 
-	// convert each url(...)
-	/*
-	This regular expression is just a way to recursively match brackets within
-	a string.
+  // convert each url(...)
+  /*
+  This regular expression is just a way to recursively match brackets within
+  a string.
 
-	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
-	   (  = Start a capturing group
-	     (?:  = Start a non-capturing group
-	         [^)(]  = Match anything that isn't a parentheses
-	         |  = OR
-	         \(  = Match a start parentheses
-	             (?:  = Start another non-capturing groups
-	                 [^)(]+  = Match anything that isn't a parentheses
-	                 |  = OR
-	                 \(  = Match a start parentheses
-	                     [^)(]*  = Match anything that isn't a parentheses
-	                 \)  = Match a end parentheses
-	             )  = End Group
+   /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+     (  = Start a capturing group
+       (?:  = Start a non-capturing group
+           [^)(]  = Match anything that isn't a parentheses
+           |  = OR
+           \(  = Match a start parentheses
+               (?:  = Start another non-capturing groups
+                   [^)(]+  = Match anything that isn't a parentheses
+                   |  = OR
+                   \(  = Match a start parentheses
+                       [^)(]*  = Match anything that isn't a parentheses
+                   \)  = Match a end parentheses
+               )  = End Group
               *\) = Match anything and then a close parens
           )  = Close non-capturing group
           *  = Match anything
        )  = Close capturing group
-	 \)  = Match a close parens
+   \)  = Match a close parens
 
-	 /gi  = Get all matches, not the first.  Be case insensitive.
-	 */
-	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
-		// strip quotes (if they exist)
-		var unquotedOrigUrl = origUrl
-			.trim()
-			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
-			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+   /gi  = Get all matches, not the first.  Be case insensitive.
+   */
+  var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+    // strip quotes (if they exist)
+    var unquotedOrigUrl = origUrl
+      .trim()
+      .replace(/^"(.*)"$/, function(o, $1){ return $1; })
+      .replace(/^'(.*)'$/, function(o, $1){ return $1; });
 
-		// already a full url? no change
-		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/)/i.test(unquotedOrigUrl)) {
-		  return fullMatch;
-		}
+    // already a full url? no change
+    if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/)/i.test(unquotedOrigUrl)) {
+      return fullMatch;
+    }
 
-		// convert the url to a full url
-		var newUrl;
+    // convert the url to a full url
+    var newUrl;
 
-		if (unquotedOrigUrl.indexOf("//") === 0) {
-		  	//TODO: should we add protocol?
-			newUrl = unquotedOrigUrl;
-		} else if (unquotedOrigUrl.indexOf("/") === 0) {
-			// path should be relative to the base url
-			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
-		} else {
-			// path should be relative to current directory
-			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
-		}
+    if (unquotedOrigUrl.indexOf("//") === 0) {
+        //TODO: should we add protocol?
+      newUrl = unquotedOrigUrl;
+    } else if (unquotedOrigUrl.indexOf("/") === 0) {
+      // path should be relative to the base url
+      newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+    } else {
+      // path should be relative to current directory
+      newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+    }
 
-		// send back the fixed url(...)
-		return "url(" + JSON.stringify(newUrl) + ")";
-	});
+    // send back the fixed url(...)
+    return "url(" + JSON.stringify(newUrl) + ")";
+  });
 
-	// send back the fixed css
-	return fixedCss;
+  // send back the fixed css
+  return fixedCss;
 };
 
 
@@ -36724,7 +36724,7 @@ class NeoVis {
                     }
                 }
 
-                
+                toggleOnOff(0);
                 self._network = new __WEBPACK_IMPORTED_MODULE_1__vendor_vis_dist_vis_network_min_js__["Network"](container, self._data, options);
                 
                 //더블클릭하면 연관상품 확장기능 실행
