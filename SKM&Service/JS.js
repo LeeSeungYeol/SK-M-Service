@@ -34,6 +34,7 @@ var viz;
         
       viz = new NeoVis.default(config);
 	    viz.render();
+      toggleOnOff(0);
 	}
 
     /*
@@ -69,4 +70,8 @@ var viz;
       viz = new NeoVis.default(config);
 
 	  viz.render();
+    }
+    
+    function get_shortest_path_of_graph() {
+      
     }

@@ -36681,7 +36681,7 @@ class NeoVis {
                 //             var newNodeIds = self._data.nodes.add(newNode);
                 //             console.log("Adding new node and changing self-ref to node: " + item.to);
                 //             item.to = newNodeIds[0];
-                //          }
+                //          }0.
                 //          return item;
                 //     }
                 // );
@@ -36696,17 +36696,41 @@ class NeoVis {
 
                 /* 마우스 클릭한 지점에서 메뉴 보여줌 */
                 function showMenu(x, y) {
-                  test.style.top = y+628 +"px";
-                  test.style.left = x+375 + "px"; //Graph출력하는 화면에서 Node위치와 일치시켜 주기 위해 숫자들 입력
+                  test.style.top = mouseY(event) +"px";
+                  test.style.left = mouseX(event) + "px"; //Graph출력하는 화면에서 Node위치와 일치시켜 주기 위해 숫자들 입력
 
+                }
+                function mouseX(evt) {// Graph 출력할 때 정확하게 마우스와 일치시키는 역할을 한다. 
+                    if (evt.pageX) {
+                        return evt.pageX;
+                    } else if (evt.clientX) {
+                       return evt.clientX + (document.documentElement.scrollLeft ?
+                           document.documentElement.scrollLeft :
+                           document.body.scrollLeft);
+                    } else {
+                        return null;
+                    }
+                }
+
+                function mouseY(evt) {
+                    if (evt.pageY) {
+                        return evt.pageY;
+                    } else if (evt.clientY) {
+                       return evt.clientY + (document.documentElement.scrollTop ?
+                       document.documentElement.scrollTop :
+                       document.body.scrollTop);
+                    } else {
+                        return null;
+                    }
                 }
 
                 
                 self._network = new __WEBPACK_IMPORTED_MODULE_1__vendor_vis_dist_vis_network_min_js__["Network"](container, self._data, options);
                 
                 //더블클릭하면 연관상품 확장기능 실행
+              
                 self._network.on("doubleClick", function (params) {
-                    var guessing=0; //가운데 눌렀을 때는 이동 안하게 변경
+        
                     document.getElementById("ppid").value=jsoned3;
                     params.event = "[original event]";
                     
@@ -36722,16 +36746,39 @@ class NeoVis {
                     jsoned2=jsoned2[0];
                     jsoned2=jsoned2.split(" ");
                     jsoned2=jsoned2[1];
-                    if(jsoned2==jsoned3) guessing=1;
+                    
                     jsoned3=jsoned2;
                     document.getElementById('eventSpan').innerHTML = '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
-                    if(guessing==0){
-                      draw();
-                    }
-                    guessing=0;
+                    
+                    draw();
+                    
+              
 
                     
                 }); 
+                  
+                  self._network.on("click", function (params) {
+                    document.getElementById("ppid").value=jsoned3;
+                    params.event = "[original event]";
+                    //document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
+                    //alert(this.getNodeAt(params.pointer.DOM));
+                    console.log('click event, getNodeAt returns: ' + JSON.stringify(params, ['nodes'], 4));
+                    var jsoned= JSON.stringify(params['nodes'][0],null,1);
+                    var jsoned2= JSON.stringify(self._data.nodes._data[jsoned]['title'],null,4);
+                    jsoned=JSON.stringify(self._data.nodes._data[jsoned]['label'],null,4);
+                    jsoned2=jsoned2.split("</strong>");
+                    jsoned2=jsoned2[2];
+                    jsoned2=jsoned2.split("<br>");
+                    jsoned2=jsoned2[0];
+                    jsoned2=jsoned2.split(" ");
+                    jsoned2=jsoned2[1];
+                    
+                    jsoned3=jsoned2;
+                    document.getElementById('eventSpan').innerHTML = '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
+                    toggleOnOff(0);
+                    
+                }); 
+              
 
                 //마우스 우클릭했을때 이벤트 처리
                 self._network.on("oncontext", function (params) {
@@ -36740,21 +36787,15 @@ class NeoVis {
                   //우클릭했을때 선택된 노드가 없으면 메뉴창 제거, 노드가 있으면 메뉴창 출력
                   if(this.getNodeAt(params.pointer.DOM)==undefined){
                     toggleOnOff(0);
-      
                   }
                   else{
-      
                     toggleOnOff(1);
                     showMenu(params.pointer.DOM.x, params.pointer.DOM.y);
                   }
                     
                 });
 
-                //좌클릭했을때는 기존에 화면에 출력된 메뉴창을 제거 
-                self._network.on("click", function (params) {
-                  toggleOnOff(0);
-                }); 
-
+                
 
                 //console.log(self._events);
                 console.log("completed");

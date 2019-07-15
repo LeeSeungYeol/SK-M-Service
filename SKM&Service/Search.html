@@ -8,6 +8,10 @@
     <title>CSS</title>
     <style>
       /* 전체 테두리를 꾸미는 역할 */
+      a{
+        text-decoration: none;
+        color:black;
+      }
       #jb-container {
         width: 1200px;
         margin: 0px auto;
@@ -119,7 +123,7 @@
     </script>
     <div id="jb-container"><!-- 전체 틀  //-->
       <div id="jb-header"> <!-- 전체적 제목 이름  //-->
-        <h1>Benepia Graphic DB</h1> <!--  페이지 header부분의 큰 제목 //--> 
+        <h1><a href="Search.html">Benepia Graphic DB</a></h1> <!--  페이지 header부분의 큰 제목 //--> 
       </div>
 
 
@@ -231,10 +235,13 @@
     </div>
     <div id="context-menus" class="context-menus"> <!-- 우클릭 시 메뉴의 역할 -->
         <ul>
-          <li>확장</li>
+          <li><a href="javascript:draw()">확장</a></li>
+
           <li>거리</li>
-          <li>정보</li>
+
+          <li><a href="#context_information">정보</a></li>
         </ul>
+        <h2 id="context_information">
       </div>
 
   </body>
@@ -242,11 +249,3 @@
 
 
 
-<!--
-  network.on("click", function (params) {
-        params.event = "[original event]";
-        document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
-        console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
-    });
-
-    //-->
