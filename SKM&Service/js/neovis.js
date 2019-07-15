@@ -36553,6 +36553,7 @@ class NeoVis {
             .run(this._query, {limit: 30})
             .subscribe({
                 onNext: function (record) {
+
                     recordCount++;
                     console.log("CLASS NAME");
                     console.log(record.constructor.name);
@@ -36663,13 +36664,28 @@ class NeoVis {
                         
                     }
                   };
+
                 var container = self._container;
                 self._data = {
                     "nodes": new __WEBPACK_IMPORTED_MODULE_1__vendor_vis_dist_vis_network_min_js__["DataSet"](Object.values(self._nodes)),
                     "edges": new __WEBPACK_IMPORTED_MODULE_1__vendor_vis_dist_vis_network_min_js__["DataSet"](Object.values(self._edges))
                 }
-                console.log(self._data.nodes._data);
-                //console.log(self._data.edges);
+                for(var i in self._data.nodes._data){
+                  var t_tok=JSON.stringify(self._data.nodes._data[i].title,null,4);
+                  t_tok=t_tok.split("</strong>");
+                  t_tok=t_tok[2];
+                  t_tok=t_tok.split("<br>");
+                  t_tok=t_tok[0];
+                  t_tok=t_tok.split(" ");
+                  t_tok=t_tok[1];
+                  if (t_tok==jsoned3) {
+                    //self._data.nodes._data[i].group에 해당 노드의 color정보가 담겨 있다.
+                    //따라서 jsoned3와 pid가 같은 노드(중심 노드)만 group번호를 바꿔준다
+                    self._data.nodes._data[i].group=1;
+                  }
+                }
+
+
                 
                 // Create duplicate node for any self reference relationships
                 // NOTE: Is this only useful for data model type data
@@ -36728,9 +36744,10 @@ class NeoVis {
                 self._network = new __WEBPACK_IMPORTED_MODULE_1__vendor_vis_dist_vis_network_min_js__["Network"](container, self._data, options);
                 
                 //더블클릭하면 연관상품 확장기능 실행
-              
+                
+
                 self._network.on("doubleClick", function (params) {
-        
+            
                     document.getElementById("ppid").value=jsoned3;
                     params.event = "[original event]";
                     
@@ -36756,8 +36773,8 @@ class NeoVis {
 
                     
                 }); 
-                  
-                  self._network.on("click", function (params) {
+                //마우스로 노드를 한번 클릭했을때 해당 노드의 정보를 출력
+                self._network.on("selectNodes", function (params) {
                     document.getElementById("ppid").value=jsoned3;
                     params.event = "[original event]";
                     //document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
@@ -36778,7 +36795,10 @@ class NeoVis {
                     toggleOnOff(0);
                     
                 }); 
-              
+
+                self._network.on("click", function (params) {
+                  toggleOnOff(0);
+                }); 
 
                 //마우스 우클릭했을때 이벤트 처리
                 self._network.on("oncontext", function (params) {
@@ -36796,8 +36816,6 @@ class NeoVis {
                 });
 
                 
-
-                //console.log(self._events);
                 console.log("completed");
                 setTimeout(() => { self._network.stopSimulation(); }, 10000);
                 self._events.generateEvent(__WEBPACK_IMPORTED_MODULE_4__events__["b" /* CompletionEvent */], {record_count: recordCount});
