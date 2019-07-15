@@ -36766,7 +36766,7 @@ class NeoVis {
                     
                     jsoned3=jsoned2;
                     document.getElementById('eventSpan').innerHTML = '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
-                    
+                    center_of_graph=jsoned2;
                     draw();
                     
               
@@ -36796,24 +36796,24 @@ class NeoVis {
 
                    const personName = 'Alice';
                    const resultPromise = session.run(
-                    'MATCH (p1:Product { pid:"1072885" }), (p2:Product { pid:"1009570" }), path = shortestPath((p1)-[*]-(p2)) RETURN length(path)'
+                    'MATCH (p1:Product { pid:"'+center_of_graph+'" }), (p2:Product { pid:"'+ jsoned2 +'" }), path = shortestPath((p1)-[*]-(p2)) RETURN length(path)'
                     );
 
-                   resultPromise.then(result  > {
+                   resultPromise.then(result => {
                      session.close();
 
                      const singleRecord = result.records[0];
                      const node = singleRecord.get(0);
 
-                     console.log(node);
-
+                     console.log(node['low']);
+                     document.getElementById('lengthInfo').innerHTML = '거리: '+ node['low'] +"";
                      // on application exit:
                      driver.close();
                    });
                  
                      jsoned3=jsoned2;
                     document.getElementById('eventSpan').innerHTML = '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
-                    document.getElementById('lengthInfo').innerHTML = '거리: '+ resultPromise +"";
+                    
                     toggleOnOff(0);
                     
                 }); 
