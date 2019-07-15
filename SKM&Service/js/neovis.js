@@ -36774,7 +36774,7 @@ class NeoVis {
                     
                 }); 
                 //마우스로 노드를 한번 클릭했을때 해당 노드의 정보를 출력
-                self._network.on("selectNodes", function (params) {
+                self._network.on("click", function (params) {
                     document.getElementById("ppid").value=jsoned3;
                     params.event = "[original event]";
                     //document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);

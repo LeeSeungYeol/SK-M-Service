@@ -33,8 +33,9 @@ var viz;
         console.log(limit_num);
         
       viz = new NeoVis.default(config);
+      hide_Info();
 	    viz.render();
-      toggleOnOff(0);
+      
 	}
 
     /*
@@ -72,6 +73,28 @@ var viz;
 	  viz.render();
     }
     
-    function get_shortest_path_of_graph() {
-      
+
+
+    function hide_Info(){
+      $(".jb-footer").hide();
     }
+    function show_Info(){
+      $(".jb-footer").slideToggle(300,"linear");
+    }
+
+    function hide_Info_Smoothly(){
+      $(".jb-footer").slideUp(300,"linear");
+    }
+    function hide_Length(){
+      $(".jb-length").hide();
+    }
+    function show_Length(){
+      $(".jb-length").slideDown(300,"linear");
+    }
+
+    function hide_Length_Smoothly(){
+      $(".jb-length").slideUp(300,"linear");
+    }
+
+
+

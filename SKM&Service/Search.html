@@ -52,6 +52,12 @@
         margin-bottom: 20px;
         border: 1px solid #bcbcbc;
       }
+      #jb-length {
+        height: 100px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #bcbcbc;
+      }
       .context-menus {
         position: absolute;
         display: none;
@@ -79,7 +85,7 @@
           width: 10em;
       }
       <script>
-
+        $(".jb-footer").hide();
 
           
       </script>
@@ -210,10 +216,7 @@
     <!-- 
       노드 클릭 부분의 역할을 하는 부분이다. 
     -->
-    <div id="jb-footer"> 
-        결과: <br>
-          <pre id="eventSpan"></pre>  <!-- neovis.js으로 부터 클릭에 대한 정보를 받아온다. (innerHTML) -->
-    </div>
+    
     <div id="jb-content">
       <script
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -230,21 +233,34 @@
     </body>
 
       </div>
-      
+      <div id="jb-footer" class="jb-footer"> 
+        상품 정보: <br>
+          <pre id="eventSpan"></pre>  <!-- neovis.js으로 부터 클릭에 대한 정보를 받아온다. (innerHTML) -->
+    </div>
+    <div id="jb-length" class="jb-length"> 
+        거리 정보: <br>
+          <pre id="lengthInfo"></pre>  <!-- neovis.js으로 부터 클릭에 대한 정보를 받아온다. (innerHTML) -->
+    </div>
       
     </div>
+    
     <div id="context-menus" class="context-menus"> <!-- 우클릭 시 메뉴의 역할 -->
         <ul>
           <li><a href="javascript:draw()">확장</a></li>
 
-          <li>거리</li>
+          <li><a href="javascript:show_length()">거리</a></li>
 
-          <li><a href="#context_information">정보</a></li>
+          <li><a href="javascript:show_Info()">정보</a></li>
         </ul>
         <h2 id="context_information">
       </div>
 
+    
+
   </body>
+
+
+
 </html>
 
 
