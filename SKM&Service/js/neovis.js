@@ -36678,7 +36678,7 @@ class NeoVis {
                   t_tok=t_tok[0];
                   t_tok=t_tok.split(" ");
                   t_tok=t_tok[1];
-                  if (t_tok==jsoned3) {
+                  if (t_tok==center_of_graph) {
                     //self._data.nodes._data[i].group에 해당 노드의 color정보가 담겨 있다.
                     //따라서 jsoned3와 pid가 같은 노드(중심 노드)만 group번호를 바꿔준다
                     self._data.nodes._data[i].group=1;
