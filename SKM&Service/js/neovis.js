@@ -36670,20 +36670,34 @@ class NeoVis {
                     "nodes": new __WEBPACK_IMPORTED_MODULE_1__vendor_vis_dist_vis_network_min_js__["DataSet"](Object.values(self._nodes)),
                     "edges": new __WEBPACK_IMPORTED_MODULE_1__vendor_vis_dist_vis_network_min_js__["DataSet"](Object.values(self._edges))
                 }
-                for(var i in self._data.nodes._data){
-                  var t_tok=JSON.stringify(self._data.nodes._data[i].title,null,4);
-                  t_tok=t_tok.split("</strong>");
-                  t_tok=t_tok[2];
-                  t_tok=t_tok.split("<br>");
-                  t_tok=t_tok[0];
-                  t_tok=t_tok.split(" ");
-                  t_tok=t_tok[1];
-                  if (t_tok==center_of_graph) {
-                    //self._data.nodes._data[i].group에 해당 노드의 color정보가 담겨 있다.
-                    //따라서 jsoned3와 pid가 같은 노드(중심 노드)만 group번호를 바꿔준다
-                    self._data.nodes._data[i].group=1;
-                  }
+                //키워드 검색시에 버블버블로 출력되면 edge의 갯수가 0개이기 때문에 
+                //edge의 갯수로 키워드검색여부를 판단하고 키워드 검색이 아닌 일반 graph 출력일때에만
+                //중심노드의 색깔 변경
+                var check_no_edge=0;
+                for(var i in self._data.edges._data){
+                  check_no_edge++;
+
                 }
+                if(check_no_edge!=0){
+                  for(var i in self._data.nodes._data){
+                    var t_tok=JSON.stringify(self._data.nodes._data[i].title,null,4);
+                    t_tok=t_tok.split("</strong>");
+                    t_tok=t_tok[2];
+                    t_tok=t_tok.split("<br>");
+                    t_tok=t_tok[0];
+                    t_tok=t_tok.split(" ");
+                    t_tok=t_tok[1];
+
+                    if (t_tok==jsoned3) {
+                      //self._data.nodes._data[i].group에 해당 노드의 color정보가 담겨 있다.
+                      //따라서 jsoned3와 pid가 같은 노드(중심 노드)만 group번호를 바꿔준다
+                      self._data.nodes._data[i].group=1;
+                    }
+                  }
+
+                }
+                
+                
 
 
                 
@@ -36790,29 +36804,39 @@ class NeoVis {
                     jsoned2=jsoned2[0];
                     jsoned2=jsoned2.split(" ");
                     jsoned2=jsoned2[1];
+                  //중심과의 거리는 선택된 노드와 중심노드가 일치하지 않을때만 계산하게 한다.
+                 if(center_of_graph!=jsoned2){
+                  const driver = __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].driver("bolt://localhost:7687", __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].auth.basic("neo4j", "1234"));
+                  const session = driver.session();
 
-                   const driver = __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].driver("bolt://localhost:7687", __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].auth.basic("neo4j", "1234"));
-                   const session = driver.session();
-                   const resultPromise = session.run(
-                    'MATCH (p1:Product { pid:"'+center_of_graph+'" }), (p2:Product { pid:"'+ jsoned2 +'" }), path = shortestPath((p1)-[*]-(p2)) RETURN length(path)'
-                    );
+                  const resultPromise = session.run(
+                   'MATCH (p1:Product { pid:"'+center_of_graph+'" }), (p2:Product { pid:"'+ jsoned2 +'" }), path = shortestPath((p1)-[*]-(p2)) RETURN length(path)'
+                   );
 
-                   resultPromise.then(result => {
-                     session.close();
+                  resultPromise.then(result => {
+                    session.close();
 
-                     const singleRecord = result.records[0];
-                     const node = singleRecord.get(0);
+                    const singleRecord = result.records[0];
+                    const node = singleRecord.get(0);
 
-                     console.log(node['low']);
-                     document.getElementById('lengthInfo').innerHTML = '거리: '+ node['low'] +"";
-                     // on application exit:
-                     driver.close();
-                   });
-                 
+                    console.log(node['low']);
+                    document.getElementById('lengthInfo').innerHTML = '거리: '+ node['low'] +"";
+                    // on application exit:
+                    driver.close();
+                  });
+
+                    jsoned3=jsoned2;
+                   document.getElementById('eventSpan').innerHTML = '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
+
+                   toggleOnOff(0);}
+                   //만약 중심노드와 선택된 노드가 일치한다면 거리를 0으로 설정한다.
+                   else{
+                     document.getElementById('lengthInfo').innerHTML = '거리: '+ 0 +"";
                      jsoned3=jsoned2;
-                    document.getElementById('eventSpan').innerHTML = '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
-                    
-                    toggleOnOff(0);
+                   document.getElementById('eventSpan').innerHTML = '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
+
+                   toggleOnOff(0);
+                   }
                     
                 }); 
 
