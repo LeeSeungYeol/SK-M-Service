@@ -36793,8 +36793,6 @@ class NeoVis {
 
                    const driver = __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].driver("bolt://localhost:7687", __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].auth.basic("neo4j", "1234"));
                    const session = driver.session();
-
-                   const personName = 'Alice';
                    const resultPromise = session.run(
                     'MATCH (p1:Product { pid:"'+center_of_graph+'" }), (p2:Product { pid:"'+ jsoned2 +'" }), path = shortestPath((p1)-[*]-(p2)) RETURN length(path)'
                     );
@@ -36831,10 +36829,15 @@ class NeoVis {
                     toggleOnOff(0);
                   }
                   else{
+                    self._network.stopSimulation();
                     toggleOnOff(1);
                     showMenu(params.pointer.DOM.x, params.pointer.DOM.y);
                   }
                     
+                });
+                //Drag를 시작하면 이미 떠있는 메뉴창을 지운다.
+                self._network.on("dragStart", function (params) {
+                  toggleOnOff(0);
                 });
 
                 
