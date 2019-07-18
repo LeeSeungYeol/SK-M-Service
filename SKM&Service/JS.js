@@ -140,8 +140,8 @@ var viz;
     }
 
   function search_tool_internet(){
-    location.href="https://www.google.com/search?ei=8M4vXbq3Bc-zmAWIgKVQ&q="+searched+"+&oq="+searched+"&gs_l=psy-ab.3..35i39j0i20i263j0l8.643015.654481..654637...13.0..1.104.956.9j1......0....1..gws-wiz.....10..0i71j0i67j0i10j0i131i20i263j0i131.XXEsDrrQABs&ved=0ahUKEwi67_v6q73jAhXPGaYKHQhACQoQ4dUDCAo&uact=5";
-    location.target="_black";
+    window.open('about:blank').location.href="https://www.google.com/search?ei=8M4vXbq3Bc-zmAWIgKVQ&q="+searched+"+&oq="+searched+"&gs_l=psy-ab.3..35i39j0i20i263j0l8.643015.654481..654637...13.0..1.104.956.9j1......0....1..gws-wiz.....10..0i71j0i67j0i10j0i131i20i263j0i131.XXEsDrrQABs&ved=0ahUKEwi67_v6q73jAhXPGaYKHQhACQoQ4dUDCAo&uact=5";
+    //새탭에서 검색 결과가 나오도록 한다. 
 
   }
    

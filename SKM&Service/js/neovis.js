@@ -36777,7 +36777,7 @@ class NeoVis {
                     jsoned2=jsoned2[0];
                     jsoned2=jsoned2.split(" ");
                     jsoned2=jsoned2[1];
-                    
+                    searched=jsoned;
                     jsoned3=jsoned2;
                     document.getElementById('eventSpan').innerHTML = '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
                     center_of_graph=jsoned2;
@@ -36793,7 +36793,31 @@ class NeoVis {
                     params.event = "[original event]";
                     //document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
                     //alert(this.getNodeAt(params.pointer.DOM));
-                    
+                                        //assuming you have a json data as above
+                      var data = JSON.stringify(params['nodes'],null,10);
+                            
+                              
+                      
+                      var $btnDLtoExcel = $('#DLtoExcel');
+                        $btnDLtoExcel.on('click', function () {
+                            $("#dvjson").excelexportjs({
+                                        containerid: "dvjson"
+                                           , datatype: 'json'
+                                           , dataset: data
+                                           , columns: getColumns(data)     
+                                    });
+
+                        });
+                      
+                      
+                     var $btnDLtoExcel = $('#DLtoExcel-2');
+                        $btnDLtoExcel.on('click', function () {
+                            $("#tableData").excelexportjs({
+                                containerid: "tableData"
+                                , datatype: 'table'
+                            });
+
+                        });
                     console.log('click event, getNodeAt returns: ' + JSON.stringify(params, ['nodes'], 4));
                     var jsoned= JSON.stringify(params['nodes'][0],null,1);
                     var jsoned2= JSON.stringify(self._data.nodes._data[jsoned]['title'],null,4);
@@ -36824,7 +36848,7 @@ class NeoVis {
                     // on application exit:
                     driver.close();
                   });
-
+                    searched=jsoned;
                     jsoned3=jsoned2;
                    document.getElementById('eventSpan').innerHTML = '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
 
@@ -36833,6 +36857,7 @@ class NeoVis {
                    else{
                      document.getElementById('lengthInfo').innerHTML = '거리: '+ 0 +"";
                      jsoned3=jsoned2;
+                     searched=jsoned;
                    document.getElementById('eventSpan').innerHTML = '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
 
                    toggleOnOff(0);
@@ -36841,6 +36866,7 @@ class NeoVis {
                 }); 
 
                 self._network.on("click", function (params) {
+                  
                   toggleOnOff(0);
                 }); 
 
