@@ -59,10 +59,11 @@
         border: 1px solid #bcbcbc;
       }
       .context-menus {
+        height: 300px;
         position: absolute;
         display: none;
         border: 1px solid black;
-        width: 100px;
+        width: 150px;
         text-align: center;
       }
 
@@ -127,6 +128,8 @@
     var search_text="몽벨"; // 연관 상품 검색 default= "몽벨"
     var jsoned3=1151183; // 상품 ID default= 1151183
     var center_of_graph=1151183;
+    var searched="SKM&Service";
+    var linkofsearch="https://search.naver.com/search.naver?sm=top_hty&fbm=0&ie=utf8&query="+searched;
     </script>
     <div id="jb-container" class="jb-container"><!-- 전체 틀  //-->
       <div id="jb-header"> <!-- 전체적 제목 이름  //-->
@@ -246,13 +249,15 @@
     
     <div id="context-menus" class="context-menus"> <!-- 우클릭 시 메뉴의 역할 -->
         <ul>
-          <li><a href="javascript:draw_by_menu()">     확장</a></li>
+          <li><a href="javascript:draw_by_menu()"> 확장</a></li>
 
           <li><a href="javascript:show_Length()">거리</a></li>
 
           <li><a href="javascript:show_Info()">정보</a></li>
 
-          <li><a href="javascript:making_Excel()">엑셀만들기</a></li>
+          <li><a href="javascript:making_Excel()">엑셀</a></li>
+
+          <li><a href="javascript:search_tool_internet()" target="_blank">검색</a></li>
         </ul>
         <h2 id="context_information">
       </div>
