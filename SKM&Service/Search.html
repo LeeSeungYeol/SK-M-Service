@@ -108,7 +108,7 @@
     <script src="js/neovis.js"></script> <!-- neovis neo4j에 있는 것을 그래프로 옮겨옴  //-->
     <script src="js/jquery.js"></script> <!-- 제이쿼리 //-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
-
+    <script src='js/excelexportjs.js'></script>
 
     <style type="text/css">
       /* mynetwork는 클릭부분을 담당하고 있다.*/
@@ -246,11 +246,13 @@
     
     <div id="context-menus" class="context-menus"> <!-- 우클릭 시 메뉴의 역할 -->
         <ul>
-          <li><a href="javascript:draw()">확장</a></li>
+          <li><a href="javascript:draw_by_menu()">     확장</a></li>
 
           <li><a href="javascript:show_Length()">거리</a></li>
 
           <li><a href="javascript:show_Info()">정보</a></li>
+
+          <li><a href="javascript:making_Excel()">엑셀만들기</a></li>
         </ul>
         <h2 id="context_information">
       </div>
