@@ -16,7 +16,7 @@
         , dataset: null
         , columns: null
         , returnUri: false
-	, locale: 'en-US'   
+    , locale: 'en-US'   
         , worksheetName: "My Worksheet"
         , encoding: "utf-8"
     };
@@ -31,8 +31,8 @@
         var excelData;
 
         return Initialize();
-		
-		function Initialize() {
+        
+        function Initialize() {
             var type = $settings.datatype.toLowerCase();
 
             BuildDataStructure(type);
@@ -264,15 +264,19 @@
 //get columns
 function getColumns(paramData){
 
-	var header = [];
-	$.each(paramData[0], function (key, value) {
-		//console.log(key + '==' + value);
-		var obj = {}
-		obj["headertext"] = key;
-		obj["datatype"] = "string";
-		obj["datafield"] = key;
-		header.push(obj);
-	}); 
-	return header;
+    var header = [];
+    console.log(paramData[0]);
+
+
+    
+    $.each(paramData[0], function (key, value) { // error!!!
+        //console.log(key + '==' + value);
+        var obj = {}
+        obj["headertext"] = key;
+        obj["datatype"] = "string";
+        obj["datafield"] = key;
+        header.push(obj);
+    }); 
+    return header;
 
 }

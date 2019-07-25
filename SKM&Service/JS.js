@@ -28,11 +28,15 @@ var viz;
               			
 
         };
-		    console.log(num);
-        console.log(jsoned3);
-        console.log(limit_num);
+		
         
       viz = new NeoVis.default(config);
+      console.log(viz._nodes);
+      var forprint= JSON.stringify(viz._nodes);
+      console.log(forprint);
+      //  console.log(viz._nodes[48].title);
+      //var ann = JSON.stringify(viz._nodes[28])['title'];
+      //console.log(ann);
       hide_Info();
       hide_Length();
 	    viz.render();
@@ -71,11 +75,10 @@ var viz;
                     
 
         };
-        console.log(num);
-        console.log(jsoned3);
-        console.log(limit_num);
+      
         
       viz = new NeoVis.default(config);
+      
       hide_Info();
       hide_Length();
       viz.render();
@@ -144,7 +147,30 @@ var viz;
     //새탭에서 검색 결과가 나오도록 한다. 
 
   }
-   
+
+  function making_Excel(){
+    console.log(File_info_Json_Array);
+    $("#dvjson").excelexportjs({
+                    containerid: "dvjson"
+                       , datatype: 'json'
+                       , dataset: File_info_Json_Array
+                       , columns: getColumns(File_info_Json_Array)     
+                });
+
+    var _gaq = _gaq || [];
+
+    
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  }
+
 
 
 

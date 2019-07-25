@@ -104,10 +104,10 @@
             }
         </style>
   
-    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js'></script>
+    
     <script src="https://rawgit.com/neo4j-contrib/neovis.js/master/dist/neovis.js"></script>
     <script src="js/neovis.js"></script> <!-- neovis neo4j에 있는 것을 그래프로 옮겨옴  //-->
-    <script src="js/jquery.js"></script> <!-- 제이쿼리 //-->
+    <script src="js/jquery.js"></script>  <!--제이쿼리 //-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
     <script src='js/excelexportjs.js'></script>
 
@@ -130,6 +130,8 @@
     var center_of_graph=1151183;
     var searched="SKM&Service";
     var linkofsearch="https://search.naver.com/search.naver?sm=top_hty&fbm=0&ie=utf8&query="+searched;
+    var File_info_Json_Array= new Array();
+    var data = JSON.stringify(File_info_Json_Array);
     </script>
     <div id="jb-container" class="jb-container"><!-- 전체 틀  //-->
       <div id="jb-header"> <!-- 전체적 제목 이름  //-->
@@ -143,7 +145,9 @@
     <button onclick="ioput()">설정</button> <!--  입력 폼에 연관 거리를 설정하게 하는 버튼, 클릭시 ioput()함수 실행 //-->
     <br>연관 상품 최대 수 : <input type="number" id="li_input" max=250 min=0> <!--  연관 상품 최대 출력 개수를 설정하는 입력폼 입력가능 최댓 값 250, 최소 0 -->
     <button onclick="limit_ioput()">설정</button>
-    
+    <div id="dvjson"></div>
+    <button id='DLtoExcel' class="btn btn-danger" onclick="making_Excel()" >Export Data to Excel</button>
+    </br>
     <!-- 아래부터 자바스크립트 -->
     <script type="text/javascript">
     var temp; 
@@ -255,8 +259,6 @@
 
           <li><a href="javascript:show_Info()">정보</a></li>
 
-          <li><a href="javascript:making_Excel()">엑셀</a></li>
-
           <li><a href="javascript:search_tool_internet()" target="_blank">검색</a></li>
         </ul>
         <h2 id="context_information">
@@ -265,7 +267,9 @@
     
 
   </body>
- 
+  <script>
+  
+  </script>
 
 
 </html>

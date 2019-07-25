@@ -36487,8 +36487,18 @@ class NeoVis {
 
         // set all properties as tooltip
         node['title'] = "";
+        var checkingnum=1;
+        var File_info_Json=new Object();
         for (let key in n.properties) {
             node['title'] += "<strong>" + key + ":</strong>" + " " + n.properties[key] + "<br>";
+            if(checkingnum==1){
+
+              File_info_Json.상품명=n.properties["title"];
+              File_info_Json.pid=n.properties["pid"];
+              File_info_Json_Array.push(File_info_Json);
+          }
+          checkingnum*=-1;
+
         }
         return node;
     }
@@ -36555,12 +36565,9 @@ class NeoVis {
                 onNext: function (record) {
 
                     recordCount++;
-                    console.log("CLASS NAME");
-                    console.log(record.constructor.name);
-                    console.log(record);
+ 
                     record.forEach(function(v, k, r) {
-                    console.log("Constructor:");
-                    console.log(v.constructor.name);
+                  
                     if (v.constructor.name === "Node") {
                         let node = self.buildNodeVisObject(v);
                         try {
@@ -36578,8 +36585,8 @@ class NeoVis {
                         }
                     }
                     else if (v.constructor.name === "Path") {
-                        console.log("PATH");
-                        console.log(v);
+                     
+                    
                         let n1 = self.buildNodeVisObject(v.start);
                         let n2 = self.buildNodeVisObject(v.end);
                         
@@ -36594,8 +36601,9 @@ class NeoVis {
                     }
                     else if (v.constructor.name === "Array") {
                         v.forEach(function(obj) {
-                            console.log("Array element constructor:");
-                            console.log(obj.constructor.name);
+                         
+                          
+
                             if (obj.constructor.name === "Node") {
                                 let node = self.buildNodeVisObject(obj);
                                 try {
@@ -36622,7 +36630,7 @@ class NeoVis {
                     nodes: {
                         shape: 'dot',
                         font: {
-                            size: 26,
+                            size: 50,
                             strokeWidth: 7
                         },
                         scaling: {
@@ -36651,14 +36659,14 @@ class NeoVis {
                         //     iterations: 10
                         // }
                         
-                            adaptiveTimestep: true,
+                            adaptiveTimestep: false,
                             // barnesHut: {
                             //     gravitationalConstant: -8000,
                             //     springConstant: 0.04,
                             //     springLength: 95
                             // },
                             stabilization: {
-                                iterations: 200,
+                                iterations: 1000,
                                 fit: true
                             }
                         
@@ -36696,7 +36704,24 @@ class NeoVis {
                   }
 
                 }
-                
+
+                for(var i in self._data.nodes._data){
+                  var target_id= JSON.stringify(i);
+                  
+                  /*  jsoned=JSON.stringify(self._data.nodes._data[jsoned]['label'],null,4);
+                    jsoned2=jsoned2.split("</strong>");
+                    jsoned2=jsoned2[2];
+                    jsoned2=jsoned2.split("<br>");
+                    jsoned2=jsoned2[0];
+                    jsoned2=jsoned2.split(" ");
+                    jsoned2=jsoned2[1];
+                    searched=jsoned;
+                    jsoned3=jsoned2; */
+                  //File_info_Json.title="상품명";
+                  //File_info_Json.pid="상품_ID";
+                  //if(center_of_graph == ) File_info_Json.중심_여부="Yes";
+                  //File_info_Json.중심과의_거리="중심과의_거리";
+                }
                 
 
 
@@ -36759,7 +36784,8 @@ class NeoVis {
                 
                 //더블클릭하면 연관상품 확장기능 실행
                 
-
+                
+                
                 self._network.on("doubleClick", function (params) {
             
                     document.getElementById("ppid").value=jsoned3;
@@ -36767,7 +36793,7 @@ class NeoVis {
                     
                     //document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
                     //alert(this.getNodeAt(params.pointer.DOM));
-                    console.log('click event, getNodeAt returns: ' + JSON.stringify(params, ['nodes'], 4));
+                    
                     var jsoned= JSON.stringify(params['nodes'][0],null,1);
                     var jsoned2= JSON.stringify(self._data.nodes._data[jsoned]['title'],null,4);
                     jsoned=JSON.stringify(self._data.nodes._data[jsoned]['label'],null,4);
@@ -36797,28 +36823,9 @@ class NeoVis {
                       var data = JSON.stringify(params['nodes'],null,10);
                             
                               
+                   
                       
-                      var $btnDLtoExcel = $('#DLtoExcel');
-                        $btnDLtoExcel.on('click', function () {
-                            $("#dvjson").excelexportjs({
-                                        containerid: "dvjson"
-                                           , datatype: 'json'
-                                           , dataset: data
-                                           , columns: getColumns(data)     
-                                    });
-
-                        });
-                      
-                      
-                     var $btnDLtoExcel = $('#DLtoExcel-2');
-                        $btnDLtoExcel.on('click', function () {
-                            $("#tableData").excelexportjs({
-                                containerid: "tableData"
-                                , datatype: 'table'
-                            });
-
-                        });
-                    console.log('click event, getNodeAt returns: ' + JSON.stringify(params, ['nodes'], 4));
+                    
                     var jsoned= JSON.stringify(params['nodes'][0],null,1);
                     var jsoned2= JSON.stringify(self._data.nodes._data[jsoned]['title'],null,4);
                     jsoned=JSON.stringify(self._data.nodes._data[jsoned]['label'],null,4);
@@ -36829,6 +36836,8 @@ class NeoVis {
                     jsoned2=jsoned2.split(" ");
                     jsoned2=jsoned2[1];
                   //중심과의 거리는 선택된 노드와 중심노드가 일치하지 않을때만 계산하게 한다.
+
+
                  if(center_of_graph!=jsoned2){
                   const driver = __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].driver("bolt://localhost:7687", __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].auth.basic("neo4j", "1234"));
                   const session = driver.session();
@@ -36843,7 +36852,7 @@ class NeoVis {
                     const singleRecord = result.records[0];
                     const node = singleRecord.get(0);
 
-                    console.log(node['low']);
+                    
                     document.getElementById('lengthInfo').innerHTML = '거리: '+ node['low'] +"";
                     // on application exit:
                     driver.close();
@@ -36891,7 +36900,6 @@ class NeoVis {
                 });
 
                 
-                console.log("completed");
                 setTimeout(() => { self._network.stopSimulation(); }, 10000);
                 self._events.generateEvent(__WEBPACK_IMPORTED_MODULE_4__events__["b" /* CompletionEvent */], {record_count: recordCount});
                 },
