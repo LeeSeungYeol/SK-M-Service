@@ -1,6 +1,7 @@
 var viz;
 
     function draw() {
+        File_info_Json_Array = [];
         //config 형식에 맞춰어서 작성 
         var config = {
             container_id: "viz",
@@ -29,7 +30,7 @@ var viz;
 
         };
 		
-        
+      cyphermethod= "MATCH p=()-[r:CO_PURCHASE*1.."+num+"]->(product : Product {pid : '"+ center_of_graph +"'}) RETURN p LIMIT "+limit_num+"";  
       viz = new NeoVis.default(config);
       console.log(viz._nodes);
       var forprint= JSON.stringify(viz._nodes);
@@ -47,6 +48,7 @@ var viz;
 
 
   function draw_by_menu() {
+        File_info_Json_Array = [];
         //config 형식에 맞춰어서 작성 
         center_of_graph=jsoned3;
         var config = {
@@ -76,7 +78,7 @@ var viz;
 
         };
       
-        
+      cyphermethod= "MATCH p=()-[r:CO_PURCHASE*1.."+num+"]->(product : Product {pid : '"+ center_of_graph +"'}) RETURN p LIMIT "+limit_num+"";
       viz = new NeoVis.default(config);
       
       hide_Info();
@@ -89,6 +91,7 @@ var viz;
       edge를 출력 안하는 것이 특징이다. 
     */
     function draw_by_name() {
+        File_info_Json_Array = [];
         var config = {
             container_id: "viz",
             server_url: "bolt://localhost:7687",
@@ -113,11 +116,57 @@ var viz;
 
         };
 
-
+      cyphermethod= "MATCH (product1:Product) WHERE product1.title CONTAINS \'"+search_text+"\' RETURN product1";
       viz = new NeoVis.default(config);
 
 	  viz.render();
     }
+
+
+    function draw_Union() {
+        File_info_Json_Array = [];
+        cyphermethod += " UNION MATCH p=()-[r:CO_PURCHASE*1.."+num+"]->(product : Product {pid : '"+ jsoned3 +"'}) RETURN p LIMIT "+limit_num+"";
+        //config 형식에 맞춰어서 작성 
+        var config = {
+            container_id: "viz",
+            server_url: "bolt://localhost:7687",
+            server_user: "neo4j",
+            server_password: "1234", // 자신의 비밀번호를 입력 
+            arrow: true,
+            labels: { 
+               "Product": {
+                   "caption": "title",
+                   "size": "pid",
+                   "community":"community"
+                   //"sizeCypher": "MATCH (n) WHERE id(n) = {id} MATCH (n)-[r]-() RETURN sum(r.weight) AS c"
+                }
+              },
+              relationships: {
+                 "CO_PURCHASE":{
+                     "caption": false,
+                      "thickness": "weight"
+                }
+              },    
+              // pid가 jsoned3 인 노드로 부터 1~ num 거리에 있는 것들을 최대 limit_num만큼 출력 
+              initial_cypher: cyphermethod
+
+                    
+
+        };
+    
+        
+      viz = new NeoVis.default(config);
+      console.log(viz._nodes);
+      var forprint= JSON.stringify(viz._nodes);
+      console.log(forprint);
+      //  console.log(viz._nodes[48].title);
+      //var ann = JSON.stringify(viz._nodes[28])['title'];
+      //console.log(ann);
+      hide_Info();
+      hide_Length();
+      viz.render();
+      
+  }
     
 
 
@@ -150,6 +199,7 @@ var viz;
 
   function making_Excel(){
     console.log(File_info_Json_Array);
+
     $("#dvjson").excelexportjs({
                     containerid: "dvjson"
                        , datatype: 'json'
@@ -159,7 +209,7 @@ var viz;
 
     var _gaq = _gaq || [];
 
-    
+
   _gaq.push(['_setAccount', 'UA-36251023-1']);
   _gaq.push(['_setDomainName', 'jqueryscript.net']);
   _gaq.push(['_trackPageview']);

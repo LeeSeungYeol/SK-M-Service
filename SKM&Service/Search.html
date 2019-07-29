@@ -131,7 +131,9 @@
     var searched="SKM&Service";
     var linkofsearch="https://search.naver.com/search.naver?sm=top_hty&fbm=0&ie=utf8&query="+searched;
     var File_info_Json_Array= new Array();
+    var File_info_Json_Array_Final = new Array();
     var data = JSON.stringify(File_info_Json_Array);
+    var cyphermethod = new String();
     </script>
     <div id="jb-container" class="jb-container"><!-- 전체 틀  //-->
       <div id="jb-header"> <!-- 전체적 제목 이름  //-->
@@ -260,6 +262,8 @@
           <li><a href="javascript:show_Info()">정보</a></li>
 
           <li><a href="javascript:search_tool_internet()" target="_blank">검색</a></li>
+
+          <li><a href="javascript:draw_Union()"> 연장</a></li>
         </ul>
         <h2 id="context_information">
       </div>
@@ -270,7 +274,7 @@
   <script>
   
   </script>
-
+  
 
 </html>
 

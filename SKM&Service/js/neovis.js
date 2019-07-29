@@ -36495,11 +36495,16 @@ class NeoVis {
 
               File_info_Json.상품명=n.properties["title"];
               File_info_Json.pid=n.properties["pid"];
+              if (n.properties['pid']==center_of_graph) File_info_Json.중심노드= "Yes";
+              else File_info_Json.중심노드= "No";
               File_info_Json_Array.push(File_info_Json);
           }
           checkingnum*=-1;
 
         }
+
+        
+
         return node;
     }
 
@@ -36554,6 +36559,9 @@ class NeoVis {
     // public API
 
     render() {
+        $.each(File_info_Json_Array,function(i,value){
+            if(File_info_Json_Array_Final.indexOf(value) == -1 ) File_info_Json_Array_Final.push(value);
+        });
         // connect to Neo4j instance
         // run query
         let self = this;
