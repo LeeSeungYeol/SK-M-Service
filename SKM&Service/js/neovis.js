@@ -36689,29 +36689,6 @@ class NeoVis {
                 //키워드 검색시에 버블버블로 출력되면 edge의 갯수가 0개이기 때문에 
                 //edge의 갯수로 키워드검색여부를 판단하고 키워드 검색이 아닌 일반 graph 출력일때에만
                 //중심노드의 색깔 변경
-                var check_no_edge=0;
-                for(var i in self._data.edges._data){
-                  check_no_edge++;
-
-                }
-                if(check_no_edge!=0){
-                  for(var i in self._data.nodes._data){
-                    var t_tok=JSON.stringify(self._data.nodes._data[i].title,null,4);
-                    t_tok=t_tok.split("</strong>");
-                    t_tok=t_tok[2];
-                    t_tok=t_tok.split("<br>");
-                    t_tok=t_tok[0];
-                    t_tok=t_tok.split(" ");
-                    t_tok=t_tok[1];
-
-                    if (t_tok==center_of_graph) {
-                      //self._data.nodes._data[i].group에 해당 노드의 color정보가 담겨 있다.
-                      //따라서 jsoned3와 pid가 같은 노드(중심 노드)만 group번호를 바꿔준다
-                      self._data.nodes._data[i].group=1;
-                    }
-                  }
-
-                }
 
                 for(var i in self._data.nodes._data){
                   var target_id= JSON.stringify(i);
@@ -36791,7 +36768,40 @@ class NeoVis {
                 self._network = new __WEBPACK_IMPORTED_MODULE_1__vendor_vis_dist_vis_network_min_js__["Network"](container, self._data, options);
                 
                 //더블클릭하면 연관상품 확장기능 실행
-                
+                console.log(self._network);
+                var check_no_edge=0;
+                for(var i in self._data.edges._data){
+                  if(check_no_edge==0){
+                    check_no_edge++;
+                  }
+                  else{
+                    break;
+                  }
+
+                }
+                if(check_no_edge!=0){
+                  for(var i in self._data.nodes._data){
+                    var t_tok=JSON.stringify(self._data.nodes._data[i].title,null,4);
+                    t_tok=t_tok.split("</strong>");
+                    t_tok=t_tok[2];
+                    t_tok=t_tok.split("<br>");
+                    t_tok=t_tok[0];
+                    t_tok=t_tok.split(" ");
+                    t_tok=t_tok[1];
+                    
+                    if (t_tok==center_of_graph) {
+                      //self._data.nodes._data[i].group에 해당 노드의 color정보가 담겨 있다.
+                      //따라서 jsoned3와 pid가 같은 노드(중심 노드)만 group번호를 바꿔준다
+                      
+                      self._network.body.nodes[i].options.color.background="#d4f6b7";
+                      self._network.body.nodes[i].options.color.highlight.background="#86ff00";
+                      self._network.body.nodes[i].options.size=30;
+                      break;
+                    }
+                    
+                  }
+
+                }
                 
                 
                 self._network.on("doubleClick", function (params) {
