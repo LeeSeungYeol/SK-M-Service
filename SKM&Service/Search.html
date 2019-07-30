@@ -269,7 +269,6 @@
 
           <li><a href="javascript:draw_Union()"> 연장</a></li>
 
-          <li><a href="html2canvas()"> 캡쳐</a></li>
         </ul>
         <h2 id="context_information">
       </div>
@@ -277,19 +276,7 @@
     
 
   </body>
- <script src="./html2canvas/html2canvas.min.js"></script>
- <img src="<?php echo 'data:jpg;base64,'.base64_encode(file_get_contents('이미지주소.jpg')); ?>" alt="">
-<script>
-      html2canvas(document.querySelector("body"),{
-        //allowTaint: true,
-        //taintTest: false,
-        useCORS: true,
-      }).then(function(canvas) {
-        var imgageData = canvas.toDataURL("image/png");
-        var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
-        jQuery("a").attr("download", "screenshot.png").attr("href", newData);
-      });
-    </script>
+
   
 
 </html>
