@@ -36495,16 +36495,11 @@ class NeoVis {
 
               File_info_Json.상품명=n.properties["title"];
               File_info_Json.pid=n.properties["pid"];
-              if (n.properties['pid']==center_of_graph) File_info_Json.중심노드= "Yes";
-              else File_info_Json.중심노드= "No";
               File_info_Json_Array.push(File_info_Json);
           }
           checkingnum*=-1;
 
         }
-
-        
-
         return node;
     }
 
@@ -36559,9 +36554,6 @@ class NeoVis {
     // public API
 
     render() {
-        $.each(File_info_Json_Array,function(i,value){
-            if(File_info_Json_Array_Final.indexOf(value) == -1 ) File_info_Json_Array_Final.push(value);
-        });
         // connect to Neo4j instance
         // run query
         let self = this;
@@ -36806,7 +36798,6 @@ class NeoVis {
                 
                 self._network.on("doubleClick", function (params) {
             
-                    document.getElementById("ppid").value=jsoned3;
                     params.event = "[original event]";
                     
                     //document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
@@ -36823,7 +36814,7 @@ class NeoVis {
                     jsoned2=jsoned2[1];
                     searched=jsoned;
                     jsoned3=jsoned2;
-                    document.getElementById('eventSpan').innerHTML = '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
+                    document.getElementById('eventSpan').innerHTML = '상품정보' + '<br>' + '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
                     center_of_graph=jsoned2;
                     draw();
                     
@@ -36833,7 +36824,6 @@ class NeoVis {
                 }); 
                 //마우스로 노드를 한번 클릭했을때 해당 노드의 정보를 출력
                 self._network.on("selectNode", function (params) {
-                    document.getElementById("ppid").value=jsoned3;
                     params.event = "[original event]";
                     //document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
                     //alert(this.getNodeAt(params.pointer.DOM));
@@ -36871,21 +36861,21 @@ class NeoVis {
                     const node = singleRecord.get(0);
 
                     
-                    document.getElementById('lengthInfo').innerHTML = '거리: '+ node['low'] +"";
+                    document.getElementById('lengthInfo').innerHTML = '중심으로부터 거리:  '+ node['low'] +"";
                     // on application exit:
                     driver.close();
                   });
                     searched=jsoned;
                     jsoned3=jsoned2;
-                   document.getElementById('eventSpan').innerHTML = '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
+                   document.getElementById('eventSpan').innerHTML = '상품정보' + '<br>' + '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
 
                    toggleOnOff(0);}
                    //만약 중심노드와 선택된 노드가 일치한다면 거리를 0으로 설정한다.
                    else{
-                     document.getElementById('lengthInfo').innerHTML = '거리: '+ 0 +"";
+                     document.getElementById('lengthInfo').innerHTML = '중심으로부터 거리:  '+ 0 +"";
                      jsoned3=jsoned2;
                      searched=jsoned;
-                   document.getElementById('eventSpan').innerHTML = '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
+                   document.getElementById('eventSpan').innerHTML = '상품정보' + '<br>' + '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
 
                    toggleOnOff(0);
                    }
