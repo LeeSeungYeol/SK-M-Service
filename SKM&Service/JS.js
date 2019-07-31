@@ -26,10 +26,10 @@ var viz;
               // pid가 jsoned3 인 노드로 부터 1~ num 거리에 있는 것들을 최대 limit_num만큼 출력 
               initial_cypher: "MATCH p=()-[r:CO_PURCHASE*1.."+num+"]->(product : Product {pid : '"+ center_of_graph +"'}) RETURN p LIMIT "+limit_num+""
 
-              			
+                    
 
         };
-		
+    
       cyphermethod= "MATCH p=()-[r:CO_PURCHASE*1.."+num+"]->(product : Product {pid : '"+ center_of_graph +"'}) RETURN p LIMIT "+limit_num+"";  
       viz = new NeoVis.default(config);
       console.log(viz._nodes);
@@ -40,9 +40,9 @@ var viz;
       //console.log(ann);
       hide_Info();
       hide_Length();
-	    viz.render();
+      viz.render();
       
-	}
+  }
 
 
 
@@ -112,45 +112,44 @@ var viz;
               },    
               // Product title에 검색어가 있는 product를 개수 제한 없이 가져오는 역할 
               initial_cypher: "MATCH (product1:Product) WHERE product1.title CONTAINS \'"+search_text+"\' RETURN product1"
+
+
         };
 
       cyphermethod= "MATCH (product1:Product) WHERE product1.title CONTAINS \'"+search_text+"\' RETURN product1";
       viz = new NeoVis.default(config);
 
-	  viz.render();
+    viz.render();
     }
 
 
     function draw_Union() {
-        File_info_Json_Array = [];
-        cyphermethod += " UNION MATCH p=()-[r:CO_PURCHASE*1.."+num+"]->(product : Product {pid : '"+ jsoned3 +"'}) RETURN p LIMIT "+limit_num+"";
-        //config 형식에 맞춰어서 작성 
-        var config = {
-            container_id: "viz",
-            server_url: "bolt://localhost:7687",
-            server_user: "neo4j",
-            server_password: "1234", // 자신의 비밀번호를 입력 
-            arrow: true,
-            labels: { 
-               "Product": {
-                   "caption": "title",
-                   "size": "pid",
-                   "community":"community"
-                   //"sizeCypher": "MATCH (n) WHERE id(n) = {id} MATCH (n)-[r]-() RETURN sum(r.weight) AS c"
-                }
-              },
-              relationships: {
-                 "CO_PURCHASE":{
-                     "caption": false,
-                      "thickness": "weight"
-                }
-              },    
-              // pid가 jsoned3 인 노드로 부터 1~ num 거리에 있는 것들을 최대 limit_num만큼 출력 
-              initial_cypher: cyphermethod
-
-                    
-
-        };
+      File_info_Json_Array = [];
+      cyphermethod += " UNION MATCH p=()-[r:CO_PURCHASE*1.."+num+"]->(product : Product {pid : '"+ jsoned3 +"'}) RETURN p LIMIT "+limit_num+"";
+      //config 형식에 맞춰어서 작성 
+      var config = {
+        container_id: "viz",
+        server_url: "bolt://localhost:7687",
+        server_user: "neo4j",
+        server_password: "1234", // 자신의 비밀번호를 입력 
+        arrow: true,
+        labels: { 
+           "Product": {
+               "caption": "title",
+               "size": "pid",
+               "community":"community"
+               //"sizeCypher": "MATCH (n) WHERE id(n) = {id} MATCH (n)-[r]-() RETURN sum(r.weight) AS c"
+            }
+          },
+          relationships: {
+             "CO_PURCHASE":{
+                 "caption": false,
+                  "thickness": "weight"
+            }
+          },    
+          // pid가 jsoned3 인 노드로 부터 1~ num 거리에 있는 것들을 최대 limit_num만큼 출력 
+          initial_cypher: cyphermethod
+      };
     
         
       viz = new NeoVis.default(config);
@@ -219,8 +218,7 @@ var viz;
   })();
   }
 
-
-function sample() {
+  function sample() {
         
         var background = document.getElementById('jb-content').style.background;
         if(background == "") {

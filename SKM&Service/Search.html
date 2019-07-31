@@ -17,7 +17,6 @@
         margin: 0px auto;
         padding: 20px;
         border: 1px solid #bcbcbc;   
-
       }
       /* 제일 윗 부분 제목 부분을 담당한다 */
       #jb-header {
@@ -66,17 +65,14 @@
         width: 150px;
         text-align: center;
       }
-
       .context-menus.active {
         display: block;
         background-color: white;
       }
-
       .context-menus.active>ul>li {
         list-style: none;
         padding: 10px;
       }
-
       .context-menus.active>ul>li:hover {
         background-color: lightgreen;
       }  
@@ -91,8 +87,6 @@
         
       </script>
     </style> <!-- 각 레이아웃 부분 스타일 정의  //-->
-
-
   
     <!-- Neovis에서 글자 크기를 이것으로 조절하려고 했는데 잘 되지 않음 -->
     <title>neo4j sample</title> <!-- 페이지 이름  //-->
@@ -157,7 +151,6 @@
     <!-- 아래부터 자바스크립트 -->
     <script type="text/javascript">
     var temp; 
-
     /*
       var input: 연관 거리를 받는 입력 폼에서 숫자를 받아와서 저장한다.
       1~5 범위의 수인 경우 지정된 연관 거리를 변경하고 그래프를 그려주지만 그렇지 않은 경우 경고문을 띄우고 다시 입력하게 한다.
@@ -172,7 +165,6 @@
             draw();
         }
     }
-
     /*
       var input: 연관 상품 최대 개수를 입력하는 입력 폼에서 사용자가 입력한 정보를 받아오고 input에 저장한다. 
       0~250범위의 숫자가 아닌 경우 경고문을 띄운다. 이외의 경우에는 지정된 limit_num을 입력 받은 값으로 변경하고 
@@ -188,10 +180,7 @@
             draw();
         }
     }
-
-
     
-
     </script>
 
     </div>
@@ -202,9 +191,7 @@
 
       <!--
       /// 검색어를 입력하고 <enter>를 치더라도 검색 누른 것과 똑같이 실행되도록 keylistener를 추가 ///
-
         
-
       /// ///
       -->
       <button onclick="search_ioput()">검색</button> <!-- 검색을 클릭하면 search_ioput()함수가 실행되는 버튼이다. //-->
@@ -280,6 +267,3 @@
   
 
 </html>
-
-
-
