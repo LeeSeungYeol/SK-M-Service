@@ -195,13 +195,22 @@ var viz;
   }
 
   function making_Excel(){
-    console.log(File_info_Json_Array);
+    File_info_Json_Array_Final=[];
+    File_info_Json_Array_Check=[];
+    $.each(File_info_Json_Array,function(i,value){
+            console.log(value['pid']);
+            if(File_info_Json_Array_Check.indexOf(value['pid']) == -1 ) {
+              File_info_Json_Array_Final.push(value);
+              File_info_Json_Array_Check.push(value['pid']);
+            }
+        });
+    console.log(File_info_Json_Array_Final);
 
     $("#dvjson").excelexportjs({
                     containerid: "dvjson"
                        , datatype: 'json'
-                       , dataset: File_info_Json_Array
-                       , columns: getColumns(File_info_Json_Array)     
+                       , dataset: File_info_Json_Array_Final
+                       , columns: getColumns(File_info_Json_Array_Final)     
                 });
 
     var _gaq = _gaq || [];
