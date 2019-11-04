@@ -36774,28 +36774,61 @@ class NeoVis {
 
                 }
                 if(check_no_edge!=0){
+                  var id_center_of_graph=0;
+                  var disp_group_arr = new Array();
+                  var length1_group=new Array();
+                  var length2_group=new Array();
+                  var length3_group=new Array();
+                  var length4_group=new Array();
+                  var length5_group=new Array();
+                  
                   for(var i in self._data.nodes._data){
                     var t_tok=JSON.stringify(self._data.nodes._data[i].title,null,4);
+                    var disp_group;
+                    var i_group=1;
                     t_tok=t_tok.split("</strong>");
-                    t_tok=t_tok[2];
+                    disp_group=t_tok[10];
+                    t_tok=t_tok[6];
                     t_tok=t_tok.split("<br>");
                     t_tok=t_tok[0];
                     t_tok=t_tok.split(" ");
                     t_tok=t_tok[1];
-                    
+
+                    disp_group=disp_group.split("<br>");
+                    disp_group=disp_group[0];
+                    disp_group=disp_group.split(" ");
+                    disp_group=disp_group[1];
                     if (t_tok==center_of_graph) {
                       //self._data.nodes._data[i].group에 해당 노드의 color정보가 담겨 있다.
                       //따라서 jsoned3와 pid가 같은 노드(중심 노드)만 group번호를 바꿔준다
-                      
+                      id_center_of_graph=self._data.nodes._data[i].id
                       self._network.body.nodes[i].options.color.background="#d4f6b7";
                       self._network.body.nodes[i].options.color.highlight.background="#86ff00";
                       self._network.body.nodes[i].options.size=30;
                       break;
                     }
-                    
-                  }
-
+                    /*else{
+                      
+                      if(disp_group_arr.indexOf(disp_group)== -1){
+                        var tuple_group=new Array();
+                        
+                        self._network.body.nodes[i].options.color.background="#d4f6b7";
+                        self._network.body.nodes[i].options.color.highlight.background="#86ff00";
+                        tuple_group.push(disp_group);
+                        tuple_group.push()
+                        disp_group_arr.push(disp_group);
+                        i_group++;
+                      }
+                    }*/
                 }
+                console.log(self._data.edges._data);
+                for(var i in self._data.edges._data){
+                  if(self._data.edges._data.)
+                }
+
+                  
+              }
+
                 
                 
                 self._network.on("doubleClick", function (params) {
@@ -36809,7 +36842,7 @@ class NeoVis {
                     var jsoned2= JSON.stringify(self._data.nodes._data[jsoned]['title'],null,4);
                     jsoned=JSON.stringify(self._data.nodes._data[jsoned]['label'],null,4);
                     jsoned2=jsoned2.split("</strong>");
-                    jsoned2=jsoned2[2];
+                    jsoned2=jsoned2[6];
                     jsoned2=jsoned2.split("<br>");
                     jsoned2=jsoned2[0];
                     jsoned2=jsoned2.split(" ");
@@ -36840,7 +36873,7 @@ class NeoVis {
                     var jsoned2= JSON.stringify(self._data.nodes._data[jsoned]['title'],null,4);
                     jsoned=JSON.stringify(self._data.nodes._data[jsoned]['label'],null,4);
                     jsoned2=jsoned2.split("</strong>");
-                    jsoned2=jsoned2[2];
+                    jsoned2=jsoned2[6];
                     jsoned2=jsoned2.split("<br>");
                     jsoned2=jsoned2[0];
                     jsoned2=jsoned2.split(" ");
