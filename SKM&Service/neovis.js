@@ -36495,6 +36495,8 @@ class NeoVis {
 
               File_info_Json.상품명=n.properties["title"];
               File_info_Json.pid=n.properties["pid"];
+              if (n.properties['pid']==center_of_graph) File_info_Json.중심노드= "Yes";
+              else File_info_Json.중심노드= "No";
               File_info_Json_Array.push(File_info_Json);
           }
           checkingnum*=-1;
@@ -36769,31 +36771,60 @@ class NeoVis {
                   else{
                     break;
                   }
-
                 }
                 if(check_no_edge!=0){
+                  var id_center_of_graph=0;
+                  var disp_group_arr = new Array();
+                  var i_group=0;
+                  var i_t=0;
+                  var sorted_edge_array=new Array();
                   for(var i in self._data.nodes._data){
                     var t_tok=JSON.stringify(self._data.nodes._data[i].title,null,4);
+                    var disp_group;
+                    var t_node_check_array=new Array();
                     t_tok=t_tok.split("</strong>");
-                    t_tok=t_tok[2];
+                    disp_group=t_tok[9];
+                    t_tok=t_tok[6];
                     t_tok=t_tok.split("<br>");
                     t_tok=t_tok[0];
                     t_tok=t_tok.split(" ");
                     t_tok=t_tok[1];
-                    
+
+                    disp_group=disp_group.split("<br>");
+                    disp_group=disp_group[0];
+                    disp_group=disp_group.split(" ");
+                    disp_group=disp_group[1];
                     if (t_tok==center_of_graph) {
                       //self._data.nodes._data[i].group에 해당 노드의 color정보가 담겨 있다.
                       //따라서 jsoned3와 pid가 같은 노드(중심 노드)만 group번호를 바꿔준다
-                      
-                      self._network.body.nodes[i].options.color.background="#d4f6b7";
-                      self._network.body.nodes[i].options.color.highlight.background="#86ff00";
+                      id_center_of_graph=self._data.nodes._data[i].id
+                      self._network.body.nodes[i].options.color.background=self._network.groups.defaultGroups[0].highlight.background;
+                      self._network.body.nodes[i].options.color.highlight.background=self._network.groups.defaultGroups[0].background;
                       self._network.body.nodes[i].options.size=30;
-                      break;
                     }
-                    
-                  }
+                    else{
+                      i_t=disp_group_arr.indexOf(disp_group);
+                      if(i_t== -1){
 
+                        self._network.body.nodes[i].options.color.background=self._network.groups.defaultGroups[i_group+1].highlight.background;
+                        self._network.body.nodes[i].options.color.highlight.background=self._network.groups.defaultGroups[i_group+1].background;
+                        
+                        disp_group_arr.push(disp_group);
+                        i_group=i_group+1;
+                      }
+                      else{
+                        self._network.body.nodes[i].options.color.background=self._network.groups.defaultGroups[i_t+1].highlight.background;
+                        self._network.body.nodes[i].options.color.highlight.background=self._network.groups.defaultGroups[i_t+1].background;
+                      }
+                    }
                 }
+                for(var i in self._data.edges._data){
+                  sorted_edge_array.push(Array(self._data.edges._data[i])[0]);
+                }
+                sorted_edge_array.sort(function(a,b){return b.value-a.value;});
+                console.log(sorted_edge_array);
+              }
+
                 
                 
                 self._network.on("doubleClick", function (params) {
@@ -36807,7 +36838,7 @@ class NeoVis {
                     var jsoned2= JSON.stringify(self._data.nodes._data[jsoned]['title'],null,4);
                     jsoned=JSON.stringify(self._data.nodes._data[jsoned]['label'],null,4);
                     jsoned2=jsoned2.split("</strong>");
-                    jsoned2=jsoned2[5];
+                    jsoned2=jsoned2[6];
                     jsoned2=jsoned2.split("<br>");
                     jsoned2=jsoned2[0];
                     jsoned2=jsoned2.split(" ");
@@ -36828,17 +36859,12 @@ class NeoVis {
                     //document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
                     //alert(this.getNodeAt(params.pointer.DOM));
                                         //assuming you have a json data as above
-                      var data = JSON.stringify(params['nodes'],null,10);
-                            
-                              
-                   
-                      
-                    
+                    var data = JSON.stringify(params['nodes'],null,10);
                     var jsoned= JSON.stringify(params['nodes'][0],null,1);
                     var jsoned2= JSON.stringify(self._data.nodes._data[jsoned]['title'],null,4);
                     jsoned=JSON.stringify(self._data.nodes._data[jsoned]['label'],null,4);
                     jsoned2=jsoned2.split("</strong>");
-                    jsoned2=jsoned2[5];
+                    jsoned2=jsoned2[6];
                     jsoned2=jsoned2.split("<br>");
                     jsoned2=jsoned2[0];
                     jsoned2=jsoned2.split(" ");
@@ -36847,7 +36873,7 @@ class NeoVis {
 
 
                  if(center_of_graph!=jsoned2){
-                  const driver = __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].driver("bolt://localhost:7687", __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].auth.basic("neo4j", "2seungyeol!"));
+                  const driver = __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].driver("bolt://localhost:7687", __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].auth.basic("neo4j", "1234"));
                   const session = driver.session();
 
                   const resultPromise = session.run(
