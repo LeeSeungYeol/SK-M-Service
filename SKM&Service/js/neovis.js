@@ -36771,23 +36771,19 @@ class NeoVis {
                   else{
                     break;
                   }
-
                 }
                 if(check_no_edge!=0){
                   var id_center_of_graph=0;
                   var disp_group_arr = new Array();
-                  var length1_group=new Array();
-                  var length2_group=new Array();
-                  var length3_group=new Array();
-                  var length4_group=new Array();
-                  var length5_group=new Array();
-                  
+                  var i_group=0;
+                  var i_t=0;
+                  var sorted_edge_array=new Array();
                   for(var i in self._data.nodes._data){
                     var t_tok=JSON.stringify(self._data.nodes._data[i].title,null,4);
                     var disp_group;
-                    var i_group=1;
+                    var t_node_check_array=new Array();
                     t_tok=t_tok.split("</strong>");
-                    disp_group=t_tok[10];
+                    disp_group=t_tok[9];
                     t_tok=t_tok[6];
                     t_tok=t_tok.split("<br>");
                     t_tok=t_tok[0];
@@ -36802,31 +36798,37 @@ class NeoVis {
                       //self._data.nodes._data[i].group에 해당 노드의 color정보가 담겨 있다.
                       //따라서 jsoned3와 pid가 같은 노드(중심 노드)만 group번호를 바꿔준다
                       id_center_of_graph=self._data.nodes._data[i].id
-                      self._network.body.nodes[i].options.color.background="#d4f6b7";
-                      self._network.body.nodes[i].options.color.highlight.background="#86ff00";
+                      self._network.body.nodes[i].options.color.background=self._network.groups.defaultGroups[0].highlight.background;
+                      self._network.body.nodes[i].options.color.highlight.background=self._network.groups.defaultGroups[0].background;
                       self._network.body.nodes[i].options.size=30;
-                      break;
                     }
-                    /*else{
-                      
-                      if(disp_group_arr.indexOf(disp_group)== -1){
-                        var tuple_group=new Array();
+                    else{
+                      i_t=disp_group_arr.indexOf(disp_group);
+                      //카테고리별 색깔구분 기능
+                      if(i_t== -1){
+                        self._network.body.nodes[i].options.color.border=self._network.groups.defaultGroups[i_group+1].highlight.border;
+                        self._network.body.nodes[i].options.color.background=self._network.groups.defaultGroups[i_group+1].highlight.background;
+                        self._network.body.nodes[i].options.color.highlight.border=self._network.groups.defaultGroups[i_group+1].border;
+                        self._network.body.nodes[i].options.color.highlight.background=self._network.groups.defaultGroups[i_group+1].background;
                         
-                        self._network.body.nodes[i].options.color.background="#d4f6b7";
-                        self._network.body.nodes[i].options.color.highlight.background="#86ff00";
-                        tuple_group.push(disp_group);
-                        tuple_group.push()
                         disp_group_arr.push(disp_group);
-                        i_group++;
+                        i_group=i_group+1;
                       }
-                    }*/
+                      else{
+                        self._network.body.nodes[i].options.color.border=self._network.groups.defaultGroups[i_t+1].highlight.border;
+                        self._network.body.nodes[i].options.color.background=self._network.groups.defaultGroups[i_t+1].highlight.background;
+                        self._network.body.nodes[i].options.color.highlight.border=self._network.groups.defaultGroups[i_t+1].border;
+                        self._network.body.nodes[i].options.color.highlight.background=self._network.groups.defaultGroups[i_t+1].background;
+                      }
+                    }
                 }
-                console.log(self._data.edges._data);
                 for(var i in self._data.edges._data){
-                
+                  sorted_edge_array.push(Array(self._data.edges._data[i])[0]);
                 }
+                sorted_edge_array.sort(function(a,b){return b.value-a.value;});
+                console.log(sorted_edge_array);
 
-                  
+
               }
 
                 
@@ -36863,12 +36865,408 @@ class NeoVis {
                     //document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
                     //alert(this.getNodeAt(params.pointer.DOM));
                                         //assuming you have a json data as above
-                      var data = JSON.stringify(params['nodes'],null,10);
-                            
-                              
-                   
-                      
+                    var data = JSON.stringify(params['nodes'],null,10);
+                    var jsoned= JSON.stringify(params['nodes'][0],null,1);
+                    var jsoned2= JSON.stringify(self._data.nodes._data[jsoned]['title'],null,4);
+                    jsoned=JSON.stringify(self._data.nodes._data[jsoned]['label'],null,4);
+                    jsoned2=jsoned2.split("</strong>");
+                    jsoned2=jsoned2[6];
+                    jsoned2=jsoned2.split("<br>");
+                    jsoned2=jsoned2[0];
+                    jsoned2=jsoned2.split(" ");
+                    jsoned2=jsoned2[1];
+                  //중심과의 거리는 선택된 노드와 중심노드가 일치하지 않을때만 계산하게 한다.
+
+
+                 if(center_of_graph!=jsoned2){
+                  const driver = __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].driver("bolt://localhost:7687", __WEBPACK_IMPORTED_MODULE_0__vendor_neo4j_javascript_driver_lib_browser_neo4j_web_js__["v1"].auth.basic("neo4j", "2seungyeol!"));
+                  const session = driver.session();
+
+                  const resultPromise = session.run(
+                   'MATCH (p1:Product { pid:"'+center_of_graph+'" }), (p2:Product { pid:"'+ jsoned2 +'" }), path = shortestPath((p1)-[*]-(p2)) RETURN length(path)'
+                   );
+
+                  resultPromise.then(result => {
+                    session.close();
+
+                    const singleRecord = result.records[0];
+                    const node = singleRecord.get(0);
+
                     
+                    document.getElementById('lengthInfo').innerHTML = '중심으로부터 거리:  '+ node['low'] +"";
+                    // on application exit:
+                    driver.close();
+                  });
+                    searched=jsoned;
+                    jsoned3=jsoned2;
+                   document.getElementById('eventSpan').innerHTML = '상품정보' + '<br>' + '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
+
+                   toggleOnOff(0);}
+                   //만약 중심노드와 선택된 노드가 일치한다면 거리를 0으로 설정한다.
+                   else{
+                     document.getElementById('lengthInfo').innerHTML = '중심으로부터 거리:  '+ 0 +"";
+                     jsoned3=jsoned2;
+                     searched=jsoned;
+                   document.getElementById('eventSpan').innerHTML = '상품정보' + '<br>' + '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
+
+                   toggleOnOff(0);
+                   }
+                    
+                }); 
+
+                self._network.on("click", function (params) {
+                  
+                  toggleOnOff(0);
+                }); 
+
+                //마우스 우클릭했을때 이벤트 처리
+                self._network.on("oncontext", function (params) {
+                  //기본 브라우져에서 마우스 우클릭시에 출력되는 창을 제거
+                  params.event.preventDefault();
+                  //우클릭했을때 선택된 노드가 없으면 메뉴창 제거, 노드가 있으면 메뉴창 출력
+                  if(this.getNodeAt(params.pointer.DOM)==undefined){
+                    toggleOnOff(0);
+                  }
+                  else{
+                    self._network.stopSimulation();
+                    toggleOnOff(1);
+                    showMenu(params.pointer.DOM.x, params.pointer.DOM.y);
+                  }
+                    
+                });
+                //Drag를 시작하면 이미 떠있는 메뉴창을 지운다.
+                self._network.on("dragStart", function (params) {
+                  toggleOnOff(0);
+                });
+
+                
+                setTimeout(() => { self._network.stopSimulation(); }, 10000);
+                self._events.generateEvent(__WEBPACK_IMPORTED_MODULE_4__events__["b" /* CompletionEvent */], {record_count: recordCount});
+                },
+                onError: function (error) {
+                  console.log(error);
+                }
+            })
+        }; 
+
+
+    render2() {
+        // connect to Neo4j instance
+        // run query
+        let self = this;
+        let recordCount = 0;
+        let session = this._driver.session();
+        session
+            .run(this._query, {limit: 30})
+            .subscribe({
+                onNext: function (record) {
+
+                    recordCount++;
+ 
+                    record.forEach(function(v, k, r) {
+                  
+                    if (v.constructor.name === "Node") {
+                        let node = self.buildNodeVisObject(v);
+                        try {
+                            self._addNode(node);
+                        } catch(e) {
+                            console.log(e);
+                        }
+                    }
+                    else if (v.constructor.name === "Relationship") {
+                        let edge = self.buildEdgeVisObject(v);
+                        try {
+                            self._addEdge(edge);
+                        } catch(e) {
+                            console.log(e);
+                        }
+                    }
+                    else if (v.constructor.name === "Path") {
+                     
+                    
+                        let n1 = self.buildNodeVisObject(v.start);
+                        let n2 = self.buildNodeVisObject(v.end);
+                        
+                        self._addNode(n1);
+                        self._addNode(n2);
+                        v.segments.forEach((obj) => {
+                            
+                            self._addNode(self.buildNodeVisObject(obj.start));
+                            self._addNode(self.buildNodeVisObject(obj.end))
+                            self._addEdge(self.buildEdgeVisObject(obj.relationship))
+                        });
+                    }
+                    else if (v.constructor.name === "Array") {
+                        v.forEach(function(obj) {
+                         
+                          
+
+                            if (obj.constructor.name === "Node") {
+                                let node = self.buildNodeVisObject(obj);
+                                try {
+                                    self._addNode(node);
+                                } catch(e) {
+                                    console.log(e);
+                                }
+                            }
+                            else if (obj.constructor.name === "Relationship") {
+                                let edge = self.buildEdgeVisObject(obj);
+                                try {
+                                    self._addEdge(edge);
+                                } catch(e) {
+                                    console.log(e);
+                                }
+                            }
+                        });
+                    }
+                })
+                },
+                onCompleted: function () {
+                  session.close();
+                  let options = {
+                    nodes: {
+                        shape: 'dot',
+                        font: {
+                            size: 50,
+                            strokeWidth: 7
+                        },
+                        scaling: {
+                            label: {
+                                enabled: true
+                            }
+                        }
+                    },
+                    edges: {
+                        arrows: {
+                            to: {enabled: self._config.arrows || false } // FIXME: handle default value
+                        },
+                        length: 200
+                    },
+                    layout: {
+                        improvedLayout: false,
+                        hierarchical: {
+                            enabled: self._config.hierarchical || false,
+                            sortMethod: self._config.hierarchical_sort_method || "hubsize"
+                        }
+                    },
+                    physics: { // TODO: adaptive physics settings based on size of graph rendered
+                        // enabled: true,
+                        // timestep: 0.5,
+                        // stabilization: {
+                        //     iterations: 10
+                        // }
+                        
+                            adaptiveTimestep: false,
+                            // barnesHut: {
+                            //     gravitationalConstant: -8000,
+                            //     springConstant: 0.04,
+                            //     springLength: 95
+                            // },
+                            stabilization: {
+                                iterations: 1000,
+                                fit: true
+                            }
+                        
+                    }
+                  };
+
+                var container = self._container;
+                self._data = {
+                    "nodes": new __WEBPACK_IMPORTED_MODULE_1__vendor_vis_dist_vis_network_min_js__["DataSet"](Object.values(self._nodes)),
+                    "edges": new __WEBPACK_IMPORTED_MODULE_1__vendor_vis_dist_vis_network_min_js__["DataSet"](Object.values(self._edges))
+                }
+                //키워드 검색시에 버블버블로 출력되면 edge의 갯수가 0개이기 때문에 
+                //edge의 갯수로 키워드검색여부를 판단하고 키워드 검색이 아닌 일반 graph 출력일때에만
+                //중심노드의 색깔 변경
+
+                for(var i in self._data.nodes._data){
+                  var target_id= JSON.stringify(i);
+                  
+                  /*  jsoned=JSON.stringify(self._data.nodes._data[jsoned]['label'],null,4);
+                    jsoned2=jsoned2.split("</strong>");
+                    jsoned2=jsoned2[2];
+                    jsoned2=jsoned2.split("<br>");
+                    jsoned2=jsoned2[0];
+                    jsoned2=jsoned2.split(" ");
+                    jsoned2=jsoned2[1];
+                    searched=jsoned;
+                    jsoned3=jsoned2; */
+                  //File_info_Json.title="상품명";
+                  //File_info_Json.pid="상품_ID";
+                  //if(center_of_graph == ) File_info_Json.중심_여부="Yes";
+                  //File_info_Json.중심과의_거리="중심과의_거리";
+                }
+                
+
+
+                
+                // Create duplicate node for any self reference relationships
+                // NOTE: Is this only useful for data model type data
+                // self._data.edges = self._data.edges.map( 
+                //     function (item) {
+                //          if (item.from == item.to) {
+                //             var newNode = self._data.nodes.get(item.from)
+                //             delete newNode.id;
+                //             var newNodeIds = self._data.nodes.add(newNode);
+                //             console.log("Adding new node and changing self-ref to node: " + item.to);
+                //             item.to = newNodeIds[0];
+                //          }0.
+                //          return item;
+                //     }
+                // );
+                var test = document.getElementById("context-menus");
+
+
+                /* 마우스 메뉴 on & off */
+                function toggleOnOff(num) {
+                  num === 1 ? test.classList.add("active") : test.classList.remove("active");
+                  //num에 1이면 메뉴창 화면에 출력,num이 0이면 메뉴창 화면에서 제거 
+                }
+
+                /* 마우스 클릭한 지점에서 메뉴 보여줌 */
+                function showMenu(x, y) {
+                  test.style.top = mouseY(event) +"px";
+                  test.style.left = mouseX(event) + "px"; //Graph출력하는 화면에서 Node위치와 일치시켜 주기 위해 숫자들 입력
+
+                }
+                function mouseX(evt) {// Graph 출력할 때 정확하게 마우스와 일치시키는 역할을 한다. 
+                    if (evt.pageX) {
+                        return evt.pageX;
+                    } else if (evt.clientX) {
+                       return evt.clientX + (document.documentElement.scrollLeft ?
+                           document.documentElement.scrollLeft :
+                           document.body.scrollLeft);
+                    } else {
+                        return null;
+                    }
+                }
+
+                function mouseY(evt) {
+                    if (evt.pageY) {
+                        return evt.pageY;
+                    } else if (evt.clientY) {
+                       return evt.clientY + (document.documentElement.scrollTop ?
+                       document.documentElement.scrollTop :
+                       document.body.scrollTop);
+                    } else {
+                        return null;
+                    }
+                }
+
+                toggleOnOff(0);
+                self._network = new __WEBPACK_IMPORTED_MODULE_1__vendor_vis_dist_vis_network_min_js__["Network"](container, self._data, options);
+                
+                //더블클릭하면 연관상품 확장기능 실행
+                console.log(self._network);
+                var check_no_edge=0;
+                for(var i in self._data.edges._data){
+                  if(check_no_edge==0){
+                    check_no_edge++;
+                  }
+                  else{
+                    break;
+                  }
+                }
+                if(check_no_edge!=0){
+                  var id_center_of_graph=0;
+                  var disp_group_arr = new Array();
+                  var i_group=0;
+                  var i_t=0;
+                  var sorted_edge_array=new Array();
+                  for(var i in self._data.nodes._data){
+                    var t_tok=JSON.stringify(self._data.nodes._data[i].title,null,4);
+                    var disp_group;
+                    var t_node_check_array=new Array();
+                    t_tok=t_tok.split("</strong>");
+                    disp_group=t_tok[9];
+                    t_tok=t_tok[6];
+                    t_tok=t_tok.split("<br>");
+                    t_tok=t_tok[0];
+                    t_tok=t_tok.split(" ");
+                    t_tok=t_tok[1];
+
+                    disp_group=disp_group.split("<br>");
+                    disp_group=disp_group[0];
+                    disp_group=disp_group.split(" ");
+                    disp_group=disp_group[1];
+                    if (t_tok==center_of_graph) {
+                      //self._data.nodes._data[i].group에 해당 노드의 color정보가 담겨 있다.
+                      //따라서 jsoned3와 pid가 같은 노드(중심 노드)만 group번호를 바꿔준다
+                      id_center_of_graph=self._data.nodes._data[i].id
+                      self._network.body.nodes[i].options.color.background=self._network.groups.defaultGroups[0].highlight.background;
+                      self._network.body.nodes[i].options.color.highlight.background=self._network.groups.defaultGroups[0].background;
+                      self._network.body.nodes[i].options.size=30;
+                    }
+                    else{
+                      i_t=disp_group_arr.indexOf(disp_group);
+                      //카테고리별 색깔구분 기능
+                      if(i_t== -1){
+                        
+                        disp_group_arr.push(disp_group);
+                        i_group=i_group+1;
+                      }
+
+                      //선택된 카테고리만 포커싱
+                      if (i_t!=0) {
+                        self._network.body.nodes[i].options.color.border="#EEEEEE";
+                        self._network.body.nodes[i].options.color.background="#BBBBBB";
+                        self._network.body.nodes[i].options.color.highlight.border="#AAAAAA";
+                        self._network.body.nodes[i].options.color.highlight.background="#777777";
+                        self._network.body.nodes[i].options.size=15;
+                      }
+                      else{
+                        self._network.body.nodes[i].options.color.border=self._network.groups.defaultGroups[i_t+1].highlight.border;
+                        self._network.body.nodes[i].options.color.background=self._network.groups.defaultGroups[i_t+1].highlight.background;
+                        self._network.body.nodes[i].options.color.highlight.border=self._network.groups.defaultGroups[i_t+1].border;
+                        self._network.body.nodes[i].options.color.highlight.background=self._network.groups.defaultGroups[i_t+1].background;
+                        
+                      }
+                    }
+                }
+                for(var i in self._data.edges._data){
+                  sorted_edge_array.push(Array(self._data.edges._data[i])[0]);
+                }
+                sorted_edge_array.sort(function(a,b){return b.value-a.value;});
+                console.log(sorted_edge_array);
+
+
+              }
+
+                
+                
+                self._network.on("doubleClick", function (params) {
+            
+                    params.event = "[original event]";
+                    
+                    //document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
+                    //alert(this.getNodeAt(params.pointer.DOM));
+                    
+                    var jsoned= JSON.stringify(params['nodes'][0],null,1);
+                    var jsoned2= JSON.stringify(self._data.nodes._data[jsoned]['title'],null,4);
+                    jsoned=JSON.stringify(self._data.nodes._data[jsoned]['label'],null,4);
+                    jsoned2=jsoned2.split("</strong>");
+                    jsoned2=jsoned2[6];
+                    jsoned2=jsoned2.split("<br>");
+                    jsoned2=jsoned2[0];
+                    jsoned2=jsoned2.split(" ");
+                    jsoned2=jsoned2[1];
+                    searched=jsoned;
+                    jsoned3=jsoned2;
+                    document.getElementById('eventSpan').innerHTML = '상품정보' + '<br>' + '상품명 : ' + jsoned + '<br>'+'상품 id : '+jsoned2 + '<br>';
+                    center_of_graph=jsoned2;
+                    draw();
+                    
+              
+
+                    
+                }); 
+                //마우스로 노드를 한번 클릭했을때 해당 노드의 정보를 출력
+                self._network.on("selectNode", function (params) {
+                    params.event = "[original event]";
+                    //document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
+                    //alert(this.getNodeAt(params.pointer.DOM));
+                                        //assuming you have a json data as above
+                    var data = JSON.stringify(params['nodes'],null,10);
                     var jsoned= JSON.stringify(params['nodes'][0],null,1);
                     var jsoned2= JSON.stringify(self._data.nodes._data[jsoned]['title'],null,4);
                     jsoned=JSON.stringify(self._data.nodes._data[jsoned]['label'],null,4);
@@ -37021,6 +37419,8 @@ class NeoVis {
     //}
 
 }
+
+
 /* harmony export (immutable) */ __webpack_exports__["default"] = NeoVis;
 
 
