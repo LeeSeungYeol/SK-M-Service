@@ -44,9 +44,8 @@ var viz;
       
   }
 
-    function draw_by_kategorie() {
+  function draw_by_kategorie_focus() {
         File_info_Json_Array = [];
-        kategorie="#N/A"
         //config 형식에 맞춰어서 작성 
         var config = {
             container_id: "viz",
@@ -69,7 +68,9 @@ var viz;
                 }
               },    
               // pid가 jsoned3 인 노드로 부터 1~ num 거리에 있는 것들을 최대 limit_num만큼 출력 
-              initial_cypher: "MATCH (product2:Product) with product2 as p2 where p2.dispLev1Nm in ['"+kategorie+"'] MATCH p=(p2:Product)-[r:CO_PURCHASE*1.."+num+"]->(product : Product {pid : '"+ center_of_graph +"'}) RETURN p2 "+limit_num+""
+              initial_cypher: "MATCH p=()-[r:CO_PURCHASE*1.."+num+"]->(product : Product {pid : '"+ center_of_graph +"'}) RETURN p LIMIT "+limit_num+""
+
+                    
 
         };
     
@@ -83,10 +84,9 @@ var viz;
       //console.log(ann);
       hide_Info();
       hide_Length();
-      viz.render();
+      viz.render2();
       
   }
-
 
   function draw_by_menu() {
         File_info_Json_Array = [];
